@@ -1,5 +1,5 @@
-window-title-font-family="MonoLisa Variable"
-font-family="MonoLisa Variable"
+window-title-font-family="FiraCode Nerd Font Mono"
+font-family="FiraCode Nerd Font Mono"
 font-size=14
 font-feature=+liga
 font-thicken=true
@@ -22,5 +22,8 @@ mouse-hide-while-typing = true
 
 # Enable smart features via shell integration like prompt jumping
 shell-integration-features = true
+shell-integration = zsh
 
 quit-after-last-window-closed = true
+gtk-single-instance=true
+scrollback-limit = 100000000

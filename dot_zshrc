@@ -1,13 +1,10 @@
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
-[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+[ ! -f "$ZINIT_HOME/zinit.zsh" ] && {
+  mkdir -p "$(dirname $ZINIT_HOME)"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+}
 source "${ZINIT_HOME}/zinit.zsh"
 
-autoload -Uz compinit
-for dump in ~/.zcompdump(N.mh+24); do
-  compinit
-done
-compinit -C
 zmodload -i zsh/complist
 
 # Load completions immediately (needed for completion system)
@@ -37,12 +34,27 @@ zinit snippet OMZ::plugins/ssh-agent/ssh-agent.plugin.zsh
 zinit ice wait lucid
 zinit snippet OMZ::plugins/kubectl/kubectl.plugin.zsh
 
-zinit ice wait lucid atinit"source shell/key-bindings.zsh; source shell/completion.zsh"
+zinit ice wait lucid atinit"
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh || {
+    source shell/key-bindings.zsh
+    source shell/completion.zsh
+  }
+"
 zinit light junegunn/fzf
 
 # Syntax highlighting MUST load last, with compinit replay
 zinit ice wait lucid atinit'zpcompinit; zpcdreplay'
 zinit light zdharma-continuum/fast-syntax-highlighting
+
+autoload -Uz compinit
+# Optimize compinit to only do a full check once per day, using cached results otherwise
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+  compinit
+else
+  compinit -C
+fi
+
+zinit cdreplay -q
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000
