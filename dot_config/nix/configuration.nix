@@ -18,15 +18,17 @@
     [
         pkgs.neovim
         pkgs.chezmoi
-	pkgs.fzf
-	pkgs.navi
-	pkgs.argocd
+        pkgs.fzf
+        pkgs.navi
+        pkgs.argocd
+        pkgs.zoxide
         pkgs.go
         pkgs.git
         pkgs.git-lfs
         pkgs.python314
         pkgs.kubectl
         pkgs.jq
+        pkgs.zsh-completions
         pkgs.yq
         pkgs.bat
         pkgs.nodejs_25

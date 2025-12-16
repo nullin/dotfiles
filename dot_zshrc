@@ -3,39 +3,47 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-  autoload -Uz compinit
-  typeset -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)
-  if [ $(date +'%j') != $updated_at ]; then
-    compinit -i
-  else
-    compinit -C -i
-  fi
-  zmodload -i zsh/complist
-fi
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
+zmodload -i zsh/complist
 
-zinit light zdharma-continuum/history-search-multi-word
-zinit light zdharma-continuum/fast-syntax-highlighting
-
-zinit ice blockf
+# Load completions immediately (needed for completion system)
 zinit light zsh-users/zsh-completions
 
-zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"
+# Defer heavy plugins with turbo mode
+zinit ice wait lucid
+zinit light zdharma-continuum/history-search-multi-word
 
-zinit ice wait lucid atload'_zsh_autosuggest_start'
+zinit ice wait lucid atload'!_zsh_autosuggest_start'
 zinit light zsh-users/zsh-autosuggestions
 
+zinit ice wait lucid atload'
+  bindkey "^[[A" history-substring-search-up
+  bindkey "^[[B" history-substring-search-down
+'
 zinit light zsh-users/zsh-history-substring-search
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
 
+# Defer OMZ plugins - these are heavy
+zinit ice wait lucid
 zinit snippet OMZ::plugins/git/git.plugin.zsh
+
+# ssh-agent is the biggest bottleneck - defer it
+zinit ice wait lucid
 zinit snippet OMZ::plugins/ssh-agent/ssh-agent.plugin.zsh
 
+zinit ice wait lucid
 zinit snippet OMZ::plugins/kubectl/kubectl.plugin.zsh
 
-# zsh config (https://www.callstack.com/blog/supercharge-your-terminal-with-zsh)
+zinit ice wait lucid atinit"source shell/key-bindings.zsh; source shell/completion.zsh"
+zinit light junegunn/fzf
+
+# Syntax highlighting MUST load last, with compinit replay
+zinit ice wait lucid atinit'zpcompinit; zpcdreplay'
+zinit light zdharma-continuum/fast-syntax-highlighting
+
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
@@ -54,9 +62,53 @@ setopt always_to_end # move cursor to end if word had one match
 zstyle ':completion:*' menu select # select completions with arrow keys
 zstyle ':completion:*' group-name '' # group results by category
 zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches for completion
+zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
 
 export EDITOR=vi
 export PATH=$PATH:$HOME/.krew/bin
+
+# fzf parameters used in all widgets - configure layout and wrapped the preview results (useful in large command rendering)
+export FZF_DEFAULT_OPTS="--height 100% --layout reverse --preview-window=wrap"
+
+# CTRL + R: put the selected history command in the preview window - "{}" will be replaced by item selected in fzf execution runtime
+export FZF_CTRL_R_OPTS="--preview 'echo {}'"
+
+# CTRL + T: set "fd-find" as search engine instead of "find" and exclude .git for the results
+export FZF_CTRL_T_COMMAND="fd --exclude .git --ignore-file $HOME/.my-custom-zsh/.fd-fzf-ignore"
+
+# CTRL + T: put the file content if item select is a file, or put tree command output if item selected is directory
+export FZF_CTRL_T_OPTS="--preview '[ -d {} ] && tree -C {} || bat --color=always --style=numbers {}'"
+
+# disable CTRL + S and CTRL + Q
+stty -ixon
+
+# enable comments "#" expressions in the prompt shell
+setopt INTERACTIVE_COMMENTS
+
+# append new history entries to the history file
+setopt APPEND_HISTORY
+
+# save each command to the history file as soon as it is executed
+setopt INC_APPEND_HISTORY
+
+# ignore recording duplicate consecutive commands in the history
+setopt HIST_IGNORE_DUPS
+
+# ignore commands that start with a space in the history
+setopt HIST_IGNORE_SPACE
+
+
+# list files with details
+alias ll="ls -larht"
+
+# show confirm prompt
+alias rm="rm -i"
+
+# documents shortcut
+alias cdd='cd "$HOME/Documents"'
+
+# show all history lines
+alias history="history 1"
 
 dbash() { docker exec -it $1 bash }
 alias gco="git checkout"
@@ -95,8 +147,6 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # Add homebrew to the completion path
 fpath=("/usr/local/bin/" $fpath)
 
-eval "$(uvx --generate-shell-completion zsh)"
-
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
 # Go
@@ -108,5 +158,6 @@ export PATH=$PATH:$GOPATH/bin
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000
 export PATH="$HOME/.local/bin:$PATH"
 
+eval "$(uvx --generate-shell-completion zsh)"
+eval "$(pay-respects zsh)"
 eval "$(starship init zsh)"
-alias config='/usr/bin/git --git-dir=/Users/nmakar/.cfg/ --work-tree=/Users/nmakar'
