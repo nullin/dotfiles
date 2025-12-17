@@ -1,0 +1,141 @@
+{
+    "workbench.startupEditor": "none",
+    "files.autoSave": "afterDelay",
+    "workbench.iconTheme": "material-icon-theme",
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.autolinks": [
+        {
+            "prefix": "JEDI-",
+            "url": "https://stemedge.atlassian.net/browse/JEDI-<num>"
+        },
+        {
+            "prefix": "OI-",
+            "url": "https://stemedge.atlassian.net/browse/OI-<num>"
+        }
+    ],
+    "redhat.telemetry.enabled": false,
+    "editor.fontFamily": "'Fira Code Light', Menlo, Monaco, 'Courier New', monospace",
+    "files.exclude": {
+        ".idea/**": true,
+        ".venv*/**": true,
+        "*.egg-info": true,
+        "**/__pycache__": true
+    },
+    "editor.fontLigatures": true,
+    "window.newWindowDimensions": "offset",
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.fontFamily": "'MesloLGS NF'",
+    "terminal.integrated.fontSize": 14,
+    "cSpell.userWords": [
+        "amqp",
+        "backoff",
+        "changeme",
+        "cicd",
+        "CODEOWNERS",
+        "conda",
+        "coreweave",
+        "cves",
+        "mgmt",
+        "Multibranch",
+        "pterm",
+        "rabbitmq",
+        "repostate",
+        "sqlalchemy",
+        "stackrox",
+        "stretchr",
+        "tstamp",
+        "venv",
+        "vuln"
+    ],
+    "gitlens.statusBar.enabled": false,
+    "database-client.highlightSQLBlock": true,
+    "database-client.showFilter": true,
+    "python.analysis.typeCheckingMode": "off",
+    "flake8.args": [
+        "--max-line-length=120",
+        "--ignore=E402"
+    ],
+    "editor.fontSize": 13,
+    "workbench.tree.indent": 15,
+    "vscode-kubernetes.log-viewer.follow": true,
+    "vscode-kubernetes.log-viewer.timestamp": true,
+    "vscode-kubernetes.log-viewer.since": -1,
+    "vscode-kubernetes.log-viewer.tail": -1,
+    "vscode-kubernetes.log-viewer.destination": "Webview",
+    "vscode-kubernetes.log-viewer.wrap": true,
+    "workbench.editor.wrapTabs": true,
+    "files.trimTrailingWhitespace": true,
+    "git.confirmSync": false,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "git.enableSmartCommit": true,
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
+        "yaml": true
+    },
+    "github.copilot.advanced": {},
+    "editor.inlineSuggest.enabled": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "indentRainbow.lightIndicatorStyleLineWidth": 2,
+    "terminal.integrated.env.osx": {
+        "GOPRIVATE":"github.com/coreweave/*",
+        "FIG_NEW_SESSION": "1"
+    },
+    "indentRainbow.indicatorStyle": "light",
+    "tabnine.experimentalAutoImports": true,
+    "markdown-kroki.url": "https://kroki.cicd.stem.com/",
+    "markdown-kroki.prefix": "kroki-",
+    "github.copilot.editor.enableAutoCompletions": true,
+    "git.replaceTagsWhenPull": true,
+    "yaml.schemas": {
+        "/Users/nmakar/.vscode/extensions/continue.continue-1.0.7-darwin-x64/config-yaml-schema.json": [
+            ".continue/**/*.yaml"
+        ]
+    },
+    "cursor.cpp.disabledLanguages": [
+        "plaintext",
+        "markdown",
+        "scminput"
+    ],
+    "workbench.colorTheme": "One Dark Pro Night Flat",
+    "git.autofetch": true,
+    "vs-kubernetes": {
+        "vs-kubernetes.crd-code-completion": "enabled"
+    },
+    "editor.wordWrap": "on",
+    "explorer.autoReveal": "focusNoScroll","remote.SSH.remotePlatform": {
+        "coder-vscode.coder.int.coreweave.com--nmakar--nmakar-ws-1.main": "linux"
+    },
+    "remote.SSH.connectTimeout": 1800,
+    "makefile.configureOnOpen": false,
+    "cursor.general.enableShadowWorkspace": true,
+    "cursor.cpp.enablePartialAccepts": true,
+    "cursor.composer.usageSummaryDisplay": "always",
+    "terminal.integrated.suggest.windowsExecutableExtensions": {
+
+    },
+    "go.gopath": "",
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        },
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "githubPullRequests.useReviewMode": "auto",
+    "yaml.maxItemsComputed": 15000,
+    "githubPullRequests.createOnPublishBranch": "never"
+}
