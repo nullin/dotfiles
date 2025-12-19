@@ -14,7 +14,6 @@
         }
     ],
     "redhat.telemetry.enabled": false,
-    "editor.fontFamily": "'Fira Code Light', Menlo, Monaco, 'Courier New', monospace",
     "files.exclude": {
         ".idea/**": true,
         ".venv*/**": true,
@@ -57,7 +56,6 @@
         "--max-line-length=120",
         "--ignore=E402"
     ],
-    "editor.fontSize": 13,
     "workbench.tree.indent": 15,
     "vscode-kubernetes.log-viewer.follow": true,
     "vscode-kubernetes.log-viewer.timestamp": true,
@@ -137,5 +135,7 @@
     },
     "githubPullRequests.useReviewMode": "auto",
     "yaml.maxItemsComputed": 15000,
-    "githubPullRequests.createOnPublishBranch": "never"
+    "githubPullRequests.createOnPublishBranch": "never",
+    "editor.fontFamily": "'MonaspiceAr Nerd Font Mono', 'FiraCode Nerd Font Mono'",
+    "editor.fontSize": 13
 }

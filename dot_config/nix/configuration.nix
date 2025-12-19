@@ -5,6 +5,7 @@
     fonts.packages = with pkgs; [
       nerd-fonts.fira-code
       nerd-fonts.droid-sans-mono
+			nerd-fonts.monaspace
     ];
 
     # enable touch id based sudo authentication
@@ -19,7 +20,7 @@
         pkgs.neovim
         pkgs.chezmoi
         pkgs.fzf
-        pkgs.navi
+				pkgs.navi
         pkgs.argocd
         pkgs.zoxide
         pkgs.go

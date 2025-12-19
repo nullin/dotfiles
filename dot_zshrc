@@ -1,50 +1,43 @@
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-[ ! -f "$ZINIT_HOME/zinit.zsh" ] && {
-  mkdir -p "$(dirname $ZINIT_HOME)"
-  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-}
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
 zmodload -i zsh/complist
 
 # Load completions immediately (needed for completion system)
-zinit light zsh-users/zsh-completions
+zi light zsh-users/zsh-completions
 
 # Defer heavy plugins with turbo mode
-zinit ice wait lucid
-zinit light zdharma-continuum/history-search-multi-word
+zi ice wait lucid
+zi light zdharma-continuum/history-search-multi-word
 
-zinit ice wait lucid atload'!_zsh_autosuggest_start'
-zinit light zsh-users/zsh-autosuggestions
+zi ice wait lucid atload'!_zsh_autosuggest_start'
+zi light zsh-users/zsh-autosuggestions
 
-zinit ice wait lucid atload'
+zi ice wait lucid atload'
   bindkey "^[[A" history-substring-search-up
   bindkey "^[[B" history-substring-search-down
 '
-zinit light zsh-users/zsh-history-substring-search
+zi light zsh-users/zsh-history-substring-search
 
 # Defer OMZ plugins - these are heavy
-zinit ice wait lucid
-zinit snippet OMZ::plugins/git/git.plugin.zsh
+# zi ice wait lucid
+# zi snippet OMZ::plugins/git/git.plugin.zsh
 
 # ssh-agent is the biggest bottleneck - defer it
-zinit ice wait lucid
-zinit snippet OMZ::plugins/ssh-agent/ssh-agent.plugin.zsh
+# zi ice wait lucid
+# zi snippet OMZ::plugins/ssh-agent/ssh-agent.plugin.zsh
 
-zinit ice wait lucid
-zinit snippet OMZ::plugins/kubectl/kubectl.plugin.zsh
+zi ice wait lucid
+zi snippet OMZ::plugins/kubectl/kubectl.plugin.zsh
 
-zinit ice wait lucid atinit"
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh || {
-    source shell/key-bindings.zsh
-    source shell/completion.zsh
-  }
-"
-zinit light junegunn/fzf
+# zi ice from"gh-r" as"program"
+# zi light junegunn/fzf
 
 # Syntax highlighting MUST load last, with compinit replay
-zinit ice wait lucid atinit'zpcompinit; zpcdreplay'
-zinit light zdharma-continuum/fast-syntax-highlighting
+# zi ice wait lucid atinit'zpcompinit; zpcdreplay'
+# zi light zdharma-continuum/fast-syntax-highlighting
 
 autoload -Uz compinit
 # Optimize compinit to only do a full check once per day, using cached results otherwise
@@ -54,10 +47,10 @@ else
   compinit -C
 fi
 
-zinit cdreplay -q
+zi cdreplay -q
 
 HISTFILE=$HOME/.zsh_history
-HISTSIZE=100000
+HISTSIZE=50000
 SAVEHIST=$HISTSIZE
 
 setopt hist_ignore_all_dups # remove older duplicate entries from history
@@ -77,6 +70,10 @@ zstyle ':completion:::::' completer _expand _complete _ignored _approximate # en
 zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
 
 export EDITOR=vi
+# color for ls command
+export CLICOLOR=1
+export LSCOLORS="ExFxBxDxCxegedabagacad"
+
 export PATH=$PATH:$HOME/.krew/bin
 
 # fzf parameters used in all widgets - configure layout and wrapped the preview results (useful in large command rendering)
@@ -91,8 +88,8 @@ export FZF_CTRL_T_COMMAND="fd --exclude .git --ignore-file $HOME/.my-custom-zsh/
 # CTRL + T: put the file content if item select is a file, or put tree command output if item selected is directory
 export FZF_CTRL_T_OPTS="--preview '[ -d {} ] && tree -C {} || bat --color=always --style=numbers {}'"
 
-# disable CTRL + S and CTRL + Q
-stty -ixon
+# # disable CTRL + S and CTRL + Q
+# stty -ixon
 
 # enable comments "#" expressions in the prompt shell
 setopt INTERACTIVE_COMMENTS
@@ -108,7 +105,6 @@ setopt HIST_IGNORE_DUPS
 
 # ignore commands that start with a space in the history
 setopt HIST_IGNORE_SPACE
-
 
 # list files with details
 alias ll="ls -larht"
@@ -146,20 +142,15 @@ git_squash() {
 alias gsq="git_squash"
 alias watch="watch -n 2 "
 
-alias venv='venv311'
-alias venv39='uv venv -p python3.9 && source .venv/bin/activate'
-alias venv311='uv venv -p python3.11 && source .venv/bin/activate'
-alias venv2='uv venv -p python2.7'
+alias venv='venv314'
+alias venv314='uv venv -p python3.14 && source .venv/bin/activate'
 alias svenv='source .venv/bin/activate'
 
 alias cat=bat
 alias repos='cd ~/work/repos'
-fpath=(/usr/local/share/zsh-completions $fpath)
 
 # Add homebrew to the completion path
 fpath=("/usr/local/bin/" $fpath)
-
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
 # Go
 export GOPRIVATE=github.com/coreweave/*
