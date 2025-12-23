@@ -17,7 +17,8 @@
     # $ nix-env -qaP | grep wget
     environment.systemPackages =
     [
-        pkgs.neovim
+        pkgs.terraform
+				pkgs.neovim
         pkgs.chezmoi
         pkgs.fzf
 				pkgs.navi
