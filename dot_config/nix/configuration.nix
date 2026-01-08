@@ -52,8 +52,8 @@
         pkgs.act
         pkgs.lf
         pkgs.htop
-        pkgs.ghostty-bin
-        pkgs.itsycal
+        #pkgs.ghostty-bin
+				pkgs.itsycal
         #pkgs.ice-bar
         pkgs.starship
         pkgs.zinit
