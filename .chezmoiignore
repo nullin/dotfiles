@@ -1,0 +1,4 @@
+.claude/agent-memory/
+.claude/rules/cw-cli.md
+.claude/skills/cw-*
+.claude.json

@@ -1,0 +1,97 @@
+{
+    "workbench.startupEditor": "none",
+    "files.autoSave": "afterDelay",
+    "workbench.iconTheme": "material-icon-theme",
+    "redhat.telemetry.enabled": false,
+    "files.exclude": {
+        ".idea/**": true,
+        ".venv*/**": true,
+        "*.egg-info": true,
+        "**/__pycache__": true
+    },
+    "editor.fontLigatures": true,
+    "window.newWindowDimensions": "offset",
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.fontFamily": "'MesloLGS NF'",
+    "terminal.integrated.fontSize": 14,
+    "cSpell.userWords": [
+        "amqp",
+        "backoff",
+        "changeme",
+        "cicd",
+        "CODEOWNERS",
+        "conda",
+        "coreweave",
+        "cves",
+        "mgmt",
+        "Multibranch",
+        "pterm",
+        "rabbitmq",
+        "repostate",
+        "sqlalchemy",
+        "stackrox",
+        "stretchr",
+        "tstamp",
+        "venv",
+        "vuln"
+    ],
+    "python.analysis.typeCheckingMode": "off",
+    "workbench.tree.indent": 15,
+    "workbench.editor.wrapTabs": true,
+    "files.trimTrailingWhitespace": true,
+    "git.confirmSync": false,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "git.enableSmartCommit": true,
+    "editor.inlineSuggest.enabled": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "indentRainbow.lightIndicatorStyleLineWidth": 2,
+    "terminal.integrated.env.osx": {
+        "GOPRIVATE":"github.com/coreweave/*",
+        "FIG_NEW_SESSION": "1"
+    },
+    "indentRainbow.indicatorStyle": "light",
+    "git.replaceTagsWhenPull": true,
+    "cursor.cpp.disabledLanguages": [
+        "plaintext",
+        "markdown",
+        "scminput"
+    ],
+    "workbench.colorTheme": "One Dark Pro Night Flat",
+    "git.autofetch": true,
+    "editor.wordWrap": "on",
+    "explorer.autoReveal": "focusNoScroll",
+    "remote.SSH.connectTimeout": 1800,
+    "makefile.configureOnOpen": false,
+    "cursor.general.enableShadowWorkspace": true,
+    "cursor.cpp.enablePartialAccepts": true,
+    "cursor.composer.usageSummaryDisplay": "always",
+    "terminal.integrated.suggest.windowsExecutableExtensions": {
+
+    },
+    "go.gopath": "",
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        },
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "yaml.maxItemsComputed": 15000,
+    "editor.fontFamily": "'MonaspiceAr Nerd Font Mono', 'FiraCode Nerd Font Mono'",
+    "editor.fontSize": 13,
+    "claudeCode.allowDangerouslySkipPermissions": true,
+    "claudeCode.disableLoginPrompt": true,
+    "claudeCode.preferredLocation": "sidebar",
+    "claudeCode.useTerminal": true
+}

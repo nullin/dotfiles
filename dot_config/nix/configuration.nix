@@ -1,0 +1,153 @@
+# in configuration.nix
+{ pkgs, lib, inputs, ... }:
+{
+    fonts.packages = with pkgs; [
+      nerd-fonts.fira-code
+      nerd-fonts.droid-sans-mono
+			nerd-fonts.monaspace
+    ];
+
+    # enable touch id based sudo authentication
+    security.pam.services.sudo_local.touchIdAuth = true;
+    # allow installation of apps that aren't "free"
+    nixpkgs.config.allowUnfree = true;
+
+    # List packages installed in system profile. To search by name, run:
+    # $ nix-env -qaP | grep wget
+    environment.systemPackages =
+    [
+        pkgs.act
+        pkgs.aerospace
+        pkgs.argocd
+        pkgs.asdf-vm
+        pkgs.bash-completion
+        pkgs.bat
+        pkgs.caffeine
+        pkgs.chezmoi
+        pkgs.devspace
+        pkgs.doppler
+        pkgs.eza
+        pkgs.fzf
+        pkgs.gh
+        pkgs.git
+        pkgs.git-lfs
+        pkgs.go
+        pkgs.hstr
+        pkgs.htop
+        pkgs.hugo
+        #pkgs.ice-bar
+        pkgs.itsycal
+        pkgs.jira-cli-go
+        pkgs.javaPackages.compiler.openjdk25
+        pkgs.jq
+        pkgs.k9s
+        pkgs.kind
+        pkgs.krew
+        pkgs.kubecolor
+        pkgs.kubeconform
+        pkgs.kubectl
+        pkgs.kubernetes-helm
+        pkgs.lf
+        pkgs.mise
+        pkgs.navi
+        pkgs.neovim
+        pkgs.nodejs_25
+        pkgs.pay-respects
+        pkgs.python314
+        pkgs.starship
+        pkgs.terraform
+        pkgs.tilt
+        pkgs.tree
+        pkgs.uv
+        pkgs.yq
+        pkgs.zinit
+        pkgs.zoxide
+        pkgs.zsh-completions
+    ];
+
+    system.defaults = {
+      # Global macOS settings
+      NSGlobalDomain = {
+        # Disable automatic capitalization
+        NSAutomaticCapitalizationEnabled = false;
+
+        # Disable automatic period substitution
+        NSAutomaticPeriodSubstitutionEnabled = false;
+
+        # Disable smart quotes (annoying for code)
+        NSAutomaticQuoteSubstitutionEnabled = false;
+
+        # Disable smart dashes
+        NSAutomaticDashSubstitutionEnabled = false;
+
+        # Enable full keyboard access for all controls (tab between buttons)
+        AppleKeyboardUIMode = 3;
+
+        # Show all file extensions
+        AppleShowAllExtensions = true;
+
+        # Expand save panel by default
+        NSNavPanelExpandedStateForSaveMode = true;
+        NSNavPanelExpandedStateForSaveMode2 = true;
+
+        # Expand print panel by default
+        PMPrintingExpandedStateForPrint = true;
+        PMPrintingExpandedStateForPrint2 = true;
+      };
+
+      # Finder settings
+      finder = {
+        # Show all file extensions
+        AppleShowAllExtensions = true;
+
+        # Show path bar at bottom
+        ShowPathbar = true;
+
+        # Show status bar at bottom
+        ShowStatusBar = true;
+
+        # Disable warning when changing file extensions
+        FXEnableExtensionChangeWarning = false;
+
+        # Default view style (icnv, Nlsv, clmv, Flwv)
+        # icnv = Icon view, Nlsv = List view, clmv = Column view, Flwv = Gallery view
+        FXPreferredViewStyle = "clmv";
+
+        # Show hidden files
+        AppleShowAllFiles = false;
+
+        # Search current folder by default
+        FXDefaultSearchScope = "SCcf";
+
+        # Show quit option in Finder
+        QuitMenuItem = false;
+      };
+    };
+
+    system.primaryUser = "nmakar";
+
+    # Automatic garbage collection
+    nix.gc = {
+      automatic = true;
+      options = "--delete-older-than 30d";
+    };
+
+    # Optimize Nix store
+    nix.optimise.automatic = true;
+
+    # Necessary for using flakes on this system.
+    nix.settings.experimental-features = "nix-command flakes";
+
+    # Enable alternative shell support in nix-darwin.
+    # programs.fish.enable = true;
+
+    # Set Git commit hash for darwin-version.
+    system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
+
+    # Used for backwards compatibility, please read the changelog before changing.
+    # $ darwin-rebuild changelog
+    system.stateVersion = 6;
+
+    # The platform the configuration will be used on.
+    nixpkgs.hostPlatform = "aarch64-darwin";
+}

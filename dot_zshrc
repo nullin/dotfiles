@@ -1,0 +1,165 @@
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+
+zmodload -i zsh/complist
+
+# Load completions immediately (needed for completion system)
+zi light zsh-users/zsh-completions
+
+# Defer heavy plugins with turbo mode
+zi ice wait lucid
+zi light zdharma-continuum/history-search-multi-word
+
+zi ice wait lucid atload'!_zsh_autosuggest_start'
+zi light zsh-users/zsh-autosuggestions
+
+zi ice wait lucid atload'
+  bindkey "^[[A" history-substring-search-up
+  bindkey "^[[B" history-substring-search-down
+'
+zi light zsh-users/zsh-history-substring-search
+
+# Defer OMZ plugins - these are heavy
+# zi ice wait lucid
+# zi snippet OMZ::plugins/git/git.plugin.zsh
+
+# ssh-agent is the biggest bottleneck - defer it
+# zi ice wait lucid
+# zi snippet OMZ::plugins/ssh-agent/ssh-agent.plugin.zsh
+
+zi ice wait lucid
+zi snippet OMZ::plugins/kubectl/kubectl.plugin.zsh
+
+# zi ice from"gh-r" as"program"
+# zi light junegunn/fzf
+
+# Syntax highlighting MUST load last, with compinit replay
+# zi ice wait lucid atinit'zpcompinit; zpcdreplay'
+# zi light zdharma-continuum/fast-syntax-highlighting
+
+autoload -Uz compinit
+# Optimize compinit to only do a full check once per day, using cached results otherwise
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+  compinit
+else
+  compinit -C
+fi
+
+zi cdreplay -q
+
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=50000
+SAVEHIST=$HISTSIZE
+
+setopt hist_ignore_all_dups # remove older duplicate entries from history
+setopt hist_reduce_blanks # remove superfluous blanks from history items
+setopt inc_append_history # save history entries as soon as they are entered
+setopt share_history # share history between different instances of the shell
+setopt auto_cd # cd by typing directory name if it's not a command
+setopt correct_all # autocorrect commands
+
+setopt auto_list # automatically list choices on ambiguous completion
+setopt auto_menu # automatically use menu completion
+setopt always_to_end # move cursor to end if word had one match
+
+zstyle ':completion:*' menu select # select completions with arrow keys
+zstyle ':completion:*' group-name '' # group results by category
+zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches for completion
+zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
+
+export EDITOR=vi
+# color for ls command
+export CLICOLOR=1
+export LSCOLORS="ExFxBxDxCxegedabagacad"
+
+export PATH=$PATH:$HOME/.krew/bin
+
+# fzf parameters used in all widgets - configure layout and wrapped the preview results (useful in large command rendering)
+export FZF_DEFAULT_OPTS="--height 100% --layout reverse --preview-window=wrap"
+
+# CTRL + R: put the selected history command in the preview window - "{}" will be replaced by item selected in fzf execution runtime
+export FZF_CTRL_R_OPTS="--preview 'echo {}'"
+
+# CTRL + T: set "fd-find" as search engine instead of "find" and exclude .git for the results
+export FZF_CTRL_T_COMMAND="fd --exclude .git --ignore-file $HOME/.my-custom-zsh/.fd-fzf-ignore"
+
+# CTRL + T: put the file content if item select is a file, or put tree command output if item selected is directory
+export FZF_CTRL_T_OPTS="--preview '[ -d {} ] && tree -C {} || bat --color=always --style=numbers {}'"
+
+# # disable CTRL + S and CTRL + Q
+# stty -ixon
+
+# enable comments "#" expressions in the prompt shell
+setopt INTERACTIVE_COMMENTS
+
+# append new history entries to the history file
+setopt APPEND_HISTORY
+
+# save each command to the history file as soon as it is executed
+setopt INC_APPEND_HISTORY
+
+# ignore recording duplicate consecutive commands in the history
+setopt HIST_IGNORE_DUPS
+
+# ignore commands that start with a space in the history
+setopt HIST_IGNORE_SPACE
+
+# claude code aliases
+alias cs="claude"
+alias c="claude --dangerously-skip-permissions"
+
+# list files with details
+alias ll="ls -larht"
+
+# show confirm prompt
+alias rm="rm -i"
+
+# documents shortcut
+alias cdd='cd "$HOME/Documents"'
+
+# show all history lines
+alias history="history 1"
+
+dbash() { docker exec -it $1 bash }
+alias gco="git checkout"
+alias gb="git branch"
+alias gs="git status"
+alias gp="git pull --all --rebase"
+alias dk="docker"
+alias dki="docker images"
+alias dkp="docker ps -a"
+alias k="kubectl"
+alias kctx="kubectl ctx"
+alias kns="kubectl ns"
+alias busybox="kubectl run -i --tty --rm debug --image=busybox --restart=Never -- sh"
+
+git_squash() {
+  git reset --soft $(git merge-base main HEAD)
+}
+alias gsq="git_squash"
+alias watch="watch -n 2 "
+
+alias venv='venv314'
+alias venv314='uv venv -p python3.14 && source .venv/bin/activate'
+alias svenv='source .venv/bin/activate'
+
+alias cat=bat
+alias repos='cd ~/work/repos'
+
+# Add homebrew to the completion path
+fpath=("/usr/local/bin/" $fpath)
+
+# Go
+export GOPRIVATE=github.com/coreweave/*
+export GOPATH=~/go
+export PATH=$PATH:$GOPATH/bin
+
+# Claude
+export CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000
+export PATH="$HOME/.local/bin:$PATH"
+
+eval "$(uvx --generate-shell-completion zsh)"
+eval "$(pay-respects zsh)"
+eval "$(starship init zsh)"

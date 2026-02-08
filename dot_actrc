@@ -1,0 +1,6 @@
+-P ubuntu-latest=catthehacker/ubuntu:runner-22.04
+-P ubuntu-22.04=catthehacker/ubuntu:runner-22.04
+--container-architecture=linux/amd64
+#--container-options --group-add
+--rm
+--artifact-server-path /tmp/artifacts
