@@ -1,0 +1,27 @@
+{
+  description = "nix-darwin system configuration";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  outputs = inputs@{ self, nix-darwin, nixpkgs }:
+  {
+    # Build darwin flake using:
+    # $ darwin-rebuild build --flake .
+    darwinConfigurations.{{ .chezmoi.hostname | quote }} = nix-darwin.lib.darwinSystem {
+      modules = [
+        ./configuration.nix
+        {
+          users.users.{{ .username }} = {
+            name = {{ .username | quote }};
+            home = "/Users/{{ .username }}";
+          };
+        }
+      ];
+      specialArgs = { inherit inputs; };
+    };
+  };
+}
