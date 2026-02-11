@@ -18,12 +18,13 @@
     [
         pkgs.act
         pkgs.aerospace
-        pkgs.argocd
+        #pkgs.argocd
         pkgs.asdf-vm
         pkgs.bash-completion
         pkgs.bat
         pkgs.caffeine
         pkgs.chezmoi
+        pkgs.claude-code
         pkgs.devspace
         pkgs.doppler
         pkgs.eza
