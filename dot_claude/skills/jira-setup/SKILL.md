@@ -1,9 +1,17 @@
 ---
 name: jira-setup
-description: Install and configure Jira CLI for issue tracking
+description: Install, configure, and use Jira CLI for issue tracking. Use when working with Jira issues, viewing tickets, creating tasks, or setting up the CLI.
 ---
 
-# Jira CLI Setup
+# Jira CLI Setup and Usage
+
+## Quick Reference
+
+```bash
+jira issue view PROJ-123
+jira issue list -a $(jira me)
+jira issue create -p PROJ -t Task -s "Summary"
+```
 
 ## Installation
 

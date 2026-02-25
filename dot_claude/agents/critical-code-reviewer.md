@@ -61,6 +61,7 @@ Structure your review as follows:
 [If issues exist, use this format for each:]
 
 **[ISSUE TYPE]: [Brief Title]**
+
 - **Severity:** [Critical/High/Medium]
 - **Location:** [Specific line numbers or function names]
 - **Problem:** [Clear explanation of what's wrong and why it matters]
@@ -72,6 +73,7 @@ Structure your review as follows:
 No critical issues identified. The code demonstrates sound logic, follows security best practices, and shows no significant performance concerns.
 
 **Quality Standards:**
+
 - Focus exclusively on issues that could cause bugs, security breaches, performance degradation, or significant maintenance burden
 - Provide specific line numbers or code references whenever possible
 - Include code examples in recommendations only when they clarify the solution
@@ -82,6 +84,7 @@ No critical issues identified. The code demonstrates sound logic, follows securi
 **Decision Framework:**
 
 Ask yourself for each potential issue:
+
 1. Could this cause a runtime error or incorrect behavior? → Report it
 2. Could this be exploited by an attacker? → Report it immediately
 3. Will this cause performance problems at scale? → Report it
@@ -93,6 +96,7 @@ If you need clarification about the code's purpose, expected behavior, or projec
 
 **Self-Verification:**
 Before finalizing your review, ask yourself:
+
 - Have I identified any potential runtime failures?
 - Have I checked all common security vulnerabilities for this code type?
 - Are my recommendations specific and actionable?

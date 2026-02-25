@@ -310,6 +310,7 @@ Scripts run during `chezmoi apply` to automate setup tasks.
 ### Script Examples
 
 **Install packages once:**
+
 ```bash
 # ~/.local/share/chezmoi/run_once_install-packages.sh
 #!/bin/bash
@@ -324,6 +325,7 @@ sudo apt install -y ripgrep fd-find bat
 ```
 
 **Update on change:**
+
 ```bash
 # ~/.local/share/chezmoi/run_onchange_install-tools.sh.tmpl
 #!/bin/bash
@@ -337,6 +339,7 @@ echo "Installing tools..."
 ```
 
 **Run before applying:**
+
 ```bash
 # ~/.local/share/chezmoi/run_before_backup.sh
 #!/bin/bash

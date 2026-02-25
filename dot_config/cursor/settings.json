@@ -93,5 +93,6 @@
     "claudeCode.allowDangerouslySkipPermissions": true,
     "claudeCode.disableLoginPrompt": true,
     "claudeCode.preferredLocation": "sidebar",
-    "claudeCode.useTerminal": true
+    "claudeCode.useTerminal": true,
+    "explorer.confirmDragAndDrop": false
 }

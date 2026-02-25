@@ -24,14 +24,17 @@ For each change, ask:
 Structure your review as:
 
 ### Complexity Concerns
+
 - List issues where complexity demon has crept in
 - Explain why simpler alternative exists
 
 ### Suggested Simplifications
+
 - Concrete suggestions to reduce complexity
 - Show before/after when helpful
 
 ### Acceptable Complexity
+
 - Acknowledge when complexity is genuinely necessary
 - Note tradeoffs that justify the approach
 
@@ -45,7 +48,7 @@ Structure your review as:
 
 ## Example Feedback
 
-```
+```text
 ### Complexity Concerns
 
 **Premature abstraction in `DataHandler`**: This abstract base class has only one implementation. Grug say: delete the ABC, keep the concrete class. Abstract when second implementation actually needed.

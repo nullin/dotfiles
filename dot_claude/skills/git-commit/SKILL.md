@@ -1,8 +1,8 @@
 ---
 name: git-commit
-description: Create logically grouped, atomic git commits with well-formatted commit messages following best practices. Use this skill when you need to commit changes to a git repository with proper message formatting and atomic grouping.
+description: Create logically grouped, atomic git commits with well-formatted commit messages following best practices. Use when user says "/commit", "commit changes", "create commits", asks about conventional commits format, needs to split changes into multiple commits, or wants help with git add -p partial staging.
 allowed-tools:
-  - Bash
+  - Bash(git:*)
   - Read
   - Edit
 ---
@@ -14,6 +14,7 @@ This skill helps you create well-structured, atomic git commits with properly fo
 ## When to Use This Skill
 
 Use this skill when:
+
 - You need to commit changes to a git repository
 - You want to create atomic, logically grouped commits
 - You need to follow commit message best practices
@@ -59,7 +60,7 @@ commits with unrelated changes.
 
 If the project uses conventional commits, follow this structure:
 
-```
+```text
 <type>[(optional scope)]: <description>
 
 [optional body]
@@ -68,6 +69,7 @@ If the project uses conventional commits, follow this structure:
 ```
 
 **Common types:**
+
 - `feat`: A new feature
 - `fix`: A bug fix
 - `docs`: Documentation changes
@@ -80,6 +82,7 @@ If the project uses conventional commits, follow this structure:
 - `chore`: Other changes that don't modify src or test files
 
 **Examples:**
+
 - `feat: add user authentication`
 - `fix: resolve null pointer in login handler`
 - `docs: update API documentation`
@@ -100,7 +103,7 @@ Follow these seven rules for excellent commit messages (adjust for conventional 
 
 ### Message Structure
 
-```
+```text
 <subject: concise summary, imperative, capitalized, no period>
 
 <body: explain the motivation for the change and contrast with previous behavior>
@@ -118,18 +121,21 @@ Follow these seven rules for excellent commit messages (adjust for conventional 
 ### Examples
 
 **Good Examples (Traditional Style):**
+
 - `Refactor subsystem X for readability`
 - `Remove deprecated methods from UserService`
 - `Fix null pointer exception in login handler`
 - `Add user authentication middleware`
 
 **Good Examples (Conventional Commits):**
+
 - `feat: add user authentication middleware`
 - `fix: resolve null pointer exception in login handler`
 - `refactor: improve subsystem X readability`
 - `chore: remove deprecated methods from UserService`
 
 **Bad Examples:**
+
 - `fixed stuff`
 - `Changes`
 - `wip`
@@ -151,45 +157,11 @@ Follow these seven rules for excellent commit messages (adjust for conventional 
    - Verify the commit with `git show`
 6. After all commits, run `git status` to verify nothing important was missed
 
-## ANSI Escape Code Prevention
+## Reference Documentation
 
-**CRITICAL**: Never include ANSI escape codes in commit messages. These codes appear as garbage characters like `^[[1m^[[30m` or `[0m[35m` in git logs.
+For detailed information on conventional commits, see:
 
-### Root Cause
-
-The Bash tool applies syntax highlighting to heredoc content. This means using patterns like:
-```bash
-git commit -m "$(cat <<'EOF'
-fix: some message with keywords like for, if, and, in
-EOF
-)"
-```
-Will embed ANSI codes around Python/shell keywords (`for`, `if`, `and`, `in`, etc.) and punctuation.
-
-### Required Workaround
-
-**Always use the Write tool + git commit -F pattern:**
-
-1. Use the Write tool to create `.git/COMMIT_MSG_TMP` with the message content
-2. Run `git commit -F .git/COMMIT_MSG_TMP` (or `git commit --amend -F .git/COMMIT_MSG_TMP`)
-
-**Never use:**
-- `git commit -m "$(cat <<'EOF'...)"` - heredoc content gets syntax highlighted
-- `git commit -m "multi-line message"` - same issue
-
-### Other Sources of Escape Codes
-
-- CLI tool output with colors (br, grep --color, ls --color)
-- Issue tracker descriptions that store colored text
-- Copying text from terminal output
-
-### Verification
-
-After committing, verify no escape codes with:
-```bash
-git log -1 --format=%B | od -c | head -20
-```
-Look for `033 [` sequences which indicate ANSI codes. Clean commits show only printable ASCII.
+- [Conventional Commits Reference](references/conventional-commits.md) - Complete specification and examples
 
 ## Notes
 

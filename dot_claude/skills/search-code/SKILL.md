@@ -27,7 +27,7 @@ Search before you build. Existing patterns reduce tokens, ensure consistency, an
 
 Always constrain searches:
 
-```
+```text
 repo:^github.com/ORG/REPO$           # Exact repo
 repo:github.com/ORG/                 # All repos in org
 file:.*\.ts$                         # TypeScript only
@@ -40,14 +40,17 @@ Combine filters: `repo:^github.com/myorg/backend$ file:src/handlers lang:typescr
 ## Search Types
 
 **Semantic** (`sg_nls_search`) — know the concept, not the code:
+
 - "error handling for API requests"
 - "user authentication flow"
 
 **Keyword** (`sg_keyword_search`) — know exact terms:
+
 - `export async function create`
 - `app.post('/api/v2`
 
 **Deep Search** (`sg_deepsearch_read`) — need understanding, not just locations:
+
 - "How does billing calculate prorated charges?"
 - "Trace flow from signup to welcome email"
 
@@ -57,7 +60,7 @@ Use Deep Search for "how" and "why" questions. Use code search for "where" and "
 
 ### Implementing a Feature
 
-```
+```text
 Task Progress:
 - [ ] Find similar implementations
 - [ ] Read file structure
@@ -72,7 +75,7 @@ Task Progress:
 
 ### Understanding Unfamiliar Code
 
-```
+```text
 Task Progress:
 - [ ] Get big picture via Deep Search
 - [ ] Find entry points
@@ -87,7 +90,7 @@ Task Progress:
 
 ### Debugging an Issue
 
-```
+```text
 Task Progress:
 - [ ] Search for error
 - [ ] Find where thrown

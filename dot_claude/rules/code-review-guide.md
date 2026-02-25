@@ -14,12 +14,14 @@
 ## Interactive vs Non-Interactive
 
 **Use `-user` (interactive) when:**
+
 - Want to approve each fix individually
 - Code is in active development or high-risk
 - Learning from the review
 - Working on shared branches
 
 **Use non-interactive when:**
+
 - Trust automatic fixes
 - Review is routine or standard
 - Time is limited, changes are low-risk
@@ -28,6 +30,7 @@
 ## Common Workflows
 
 **Before committing:**
+
 ```bash
 /diff-review          # Quick check
 /grug-review          # Check complexity
@@ -35,12 +38,14 @@ git add . && /commit
 ```
 
 **Before PR:**
+
 ```bash
 /branch-review   # Review all changes
 /grug-review     # Simplicity check
 ```
 
 **Reviewing teammate's PR:**
+
 ```bash
 /review-pr 123   # Create GitHub review
 ```

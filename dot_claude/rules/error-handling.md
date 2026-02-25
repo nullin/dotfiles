@@ -11,6 +11,7 @@
 ## Language-Specific Patterns
 
 **Go:**
+
 ```go
 // Always check errors
 if err != nil {
@@ -22,6 +23,7 @@ var ErrNotFound = errors.New("not found")
 ```
 
 **Python:**
+
 ```python
 # Specific exceptions, not bare except:
 try:
@@ -36,6 +38,7 @@ with open('file.txt') as file:
 ```
 
 **JavaScript/TypeScript:**
+
 ```typescript
 // Proper async error handling
 try {
@@ -61,18 +64,21 @@ try {
 ## Error Categories
 
 ### User Errors (4xx)
+
 - Caused by invalid user input
 - User can fix by changing input
 - Should not be logged as errors (maybe info level)
 - Example: "Email address is required. Please provide a valid email."
 
 ### System Errors (5xx)
+
 - Caused by system failure
 - User cannot fix
 - Should be logged and alerted
 - Example: "An internal error occurred. Please try again later."
 
 ### Transient Errors
+
 - Temporary failures that might succeed on retry
 - Network issues, rate limits, temporary unavailability
 - Use exponential backoff for retries
@@ -100,12 +106,14 @@ with open(path) as file:
 ## When to Handle vs Propagate
 
 **Handle when:**
+
 - You can fix the error
 - You can provide a fallback
 - You're at an API boundary
 - You need to convert error types
 
 **Propagate when:**
+
 - You can't fix it
 - Caller is better positioned to handle it
 - You want to add context
@@ -113,6 +121,7 @@ with open(path) as file:
 ## Grug Brain Perspective
 
 From [grug-brain.md](grug-brain.md):
+
 - Don't add "just in case" error handling - only handle errors that can actually occur
 - Trust internal code - don't validate at every layer
 - Validate at boundaries - user input, external APIs, file I/O

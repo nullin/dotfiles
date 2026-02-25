@@ -16,7 +16,7 @@
     # $ nix-env -qaP | grep wget
     environment.systemPackages =
     [
-        pkgs.act
+		    pkgs.act
         pkgs.aerospace
         #pkgs.argocd
         pkgs.asdf-vm
@@ -48,11 +48,12 @@
         pkgs.kubeconform
         pkgs.kubectl
         pkgs.kubernetes-helm
-        pkgs.lf
+				pkgs.lf
         pkgs.mise
         pkgs.navi
         pkgs.neovim
         pkgs.nodejs_25
+        pkgs.openssl_3
         pkgs.pay-respects
         pkgs.python314
         pkgs.starship
@@ -64,6 +65,10 @@
         pkgs.zinit
         pkgs.zoxide
         pkgs.zsh-completions
+    ];
+
+		environment.systemPath = [
+      "/opt/coreweave/bin"
     ];
 
     system.defaults = {

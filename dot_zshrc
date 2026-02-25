@@ -109,6 +109,13 @@ setopt HIST_IGNORE_SPACE
 # claude code aliases
 alias cs="claude"
 alias c="claude --dangerously-skip-permissions"
+alias ca="c --agent daily"
+
+mc() {
+  pushd ~/work/claude >/dev/null || return
+  claude --dangerously-skip-permissions --agent daily
+  popd >/dev/null
+}
 
 # list files with details
 alias ll="ls -larht"
@@ -148,6 +155,21 @@ alias svenv='source .venv/bin/activate'
 alias cat=bat
 alias repos='cd ~/work/repos'
 
+# update repos by syncing against latest remote
+ru() {
+    pushd ~/work/repos >/dev/null || return
+    for dir in */; do		
+			  dir=${dir%/}
+        echo "Processing $dir"
+        if [[ -d "$dir/.git" ]]; then
+            (cd "$dir" && git pull --rebase) || echo "Failed: $dir"
+        else
+            echo "Skipping $dir (not a git repo)"
+        fi
+		done
+    popd >/dev/null
+}
+
 # Add homebrew to the completion path
 fpath=("/usr/local/bin/" $fpath)
 
@@ -155,6 +177,9 @@ fpath=("/usr/local/bin/" $fpath)
 export GOPRIVATE=github.com/coreweave/*
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
+
+# Sublime Text
+export PATH=$PATH:"/Applications/Sublime Text.app/Contents/SharedSupport/bin"
 
 # Claude
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000
