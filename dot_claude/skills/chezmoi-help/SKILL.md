@@ -29,10 +29,39 @@ Chezmoi manages your dotfiles across multiple machines, with support for templat
 | Add file as template | `chezmoi add --template <file>` |
 | Add encrypted file | `chezmoi add --encrypt <file>` |
 | Check for issues | `chezmoi doctor` |
+| Check sync status | `chezmoi status` |
 | Re-add modified file | `chezmoi re-add` |
 | Remove file | `chezmoi forget <file>` |
 | Change to source dir | `chezmoi cd` |
 | Execute in source dir | `chezmoi execute-template` |
+
+## Status Codes
+
+`chezmoi status` outputs two characters per line followed by the file path. Each character represents a change type:
+
+| Code | Meaning |
+|------|---------|
+| ` ` (space) | No change |
+| `A` | Added |
+| `D` | Deleted |
+| `M` | Modified |
+| `R` | Run (scripts) |
+
+The two columns represent:
+- **First column**: what chezmoi would change in the **source state** (repo) to match destination (disk)
+- **Second column**: what chezmoi would change in the **destination** (disk) to match source (repo)
+
+### Common Status Patterns
+
+| Status | Meaning | Action |
+|--------|---------|--------|
+| `MM` | File modified on disk since last sync | `chezmoi re-add <file>` to push local changes to repo |
+| `DA` | File exists in repo but deleted from disk | `chezmoi forget --force <file>` to remove from repo, or `chezmoi apply` to restore on disk |
+| ` A` | File in repo, not yet on disk | `chezmoi apply` to create on disk |
+| ` M` | File in repo is newer than disk | `chezmoi apply` to update disk |
+| `A ` | File on disk, not in repo | `chezmoi add <file>` to track it |
+
+**Common pitfall**: `DA` does NOT mean the file needs to be added. It means chezmoi tracks a file that no longer exists on disk. Either restore it with `apply` or stop tracking it with `forget --force`.
 
 ## Getting Started
 
@@ -579,6 +608,34 @@ git push
 exit
 ```
 
+### Sync Local State to Dotfiles Repo
+
+When files have been modified or deleted on disk outside of chezmoi (common with
+tools that manage their own config), sync those changes back to the repo:
+
+```bash
+# 1. Check what's out of sync
+chezmoi status
+
+# 2. Interpret the output:
+#    MM .zshrc              - modified on disk, re-add to sync
+#    DA .claude/rules/x.md  - in repo but deleted from disk, forget to clean up
+
+# 3. Re-add modified files (MM) to push local changes to repo
+chezmoi re-add ~/.zshrc ~/.config/cursor/settings.json
+
+# 4. Remove stale files (DA) that no longer exist on disk
+#    Use --force to skip interactive confirmation (required in non-TTY environments)
+chezmoi forget --force ~/.claude/rules/old-file.md
+
+# 5. Verify clean state
+chezmoi status
+```
+
+**Note on autoCommit/autoPush**: If `git.autoCommit` and `git.autoPush` are enabled
+in chezmoi config, `re-add` and `forget` will automatically commit and push. Otherwise,
+manually commit via `chezmoi cd` and git commands.
+
 ### Sync Across Machines
 
 ```bash
@@ -770,6 +827,7 @@ chezmoi apply
 ## Autonomy Guidelines for Claude
 
 **Execute autonomously:**
+- `chezmoi status` - Show sync status between source and destination
 - `chezmoi diff` - Show what would change
 - `chezmoi verify` - Verify files
 - `chezmoi doctor` - Diagnose issues
