@@ -68,7 +68,7 @@
     ];
 
 		environment.systemPath = [
-      "/opt/coreweave/bin"
+      "{{ .corporate_path }}"
     ];
 
     system.defaults = {
@@ -130,7 +130,7 @@
       };
     };
 
-    system.primaryUser = "nmakar";
+    system.primaryUser = "{{ .username }}";
 
     # Automatic garbage collection
     nix.gc = {

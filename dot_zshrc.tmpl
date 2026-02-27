@@ -117,6 +117,16 @@ mc() {
   popd >/dev/null
 }
 
+# headless Claude PR review with grug-brain + go-review-standards
+ccreview() {
+  if [ -z "$1" ]; then
+    echo "Usage: ccreview <pr-number>"
+    return 1
+  fi
+  claude -p "Review PR #$1. Read ~/.claude/skills/go-review-standards/SKILL.md first. Focus on: unnecessary complexity, single-use constants, over-engineered abstractions, questionable defaults placement, and Go best practices. Use grug-brain principles: complexity bad, simplicity good. Present findings as a checklist ranked by severity (blocking, should-fix, nit)." \
+    --allowedTools "Read,Bash(gh:*),Bash(git:*),Grep,Glob"
+}
+
 # list files with details
 alias ll="ls -larht"
 
@@ -174,7 +184,7 @@ ru() {
 fpath=("/usr/local/bin/" $fpath)
 
 # Go
-export GOPRIVATE=github.com/coreweave/*
+export GOPRIVATE={{ .goprivate }}
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
 
