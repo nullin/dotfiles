@@ -1,4 +1,15 @@
-.claude/agent-memory/
-.claude/rules/cw-cli.md
-.claude/skills/cw-*
+# Claude Code: ignore everything, whitelist portable config
+.claude/*
+!.claude/CLAUDE.md
+!.claude/settings.json
+!.claude/agents
+!.claude/hooks
+!.claude/prompts
+!.claude/rules
+!.claude/skills
+
+# Never track Cursor session data
+.cursor/cli-config.json
+
+# Never track Claude root state file
 .claude.json
