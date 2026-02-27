@@ -138,6 +138,13 @@ class ValidationError(Exception): pass
 class DatabaseError(Exception): pass
 ```
 
+## Transient Tool/API Failures
+
+When a tool call or API request returns a 500 error (e.g., `API Error: 500 {"type":"error","error":{"type":"api_error","message":"Internal server error"}}`), **automatically retry at least once** before reporting the failure. These are transient server-side errors that frequently resolve on a second attempt.
+
+- Do not ask the user whether to retry - just retry immediately
+- If the retry also fails, then report the error
+
 ## Related
 
 - [grug-brain.md](grug-brain.md) - Simplicity in error handling
