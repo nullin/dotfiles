@@ -79,12 +79,25 @@ chezmoi cat ~/.gitconfig
 chezmoi execute-template '{{ .goprivate }}'
 ```
 
+## Sensitive Data Scan (REQUIRED)
+
+The dotfiles repo is **public**. Before any `chezmoi add`, `re-add`, or source edit that will be committed, scan the file contents for:
+
+- API keys, tokens, secrets, passwords
+- Auth0 identifiers, OAuth client IDs/secrets
+- Corporate email addresses, user/team IDs
+- Private keys, certificates, JWTs
+- Credential-shaped values (`sk-*`, `ghp_*`, `Bearer *`, long base64 strings)
+
+If found: STOP. Do not add the file. Discuss with user whether to scrub values, add to `.chezmoiignore`, or templatize the sensitive parts into `chezmoi.toml` (which is local-only).
+
 ## Plain Files (everything else)
 
 All other tracked files are plain copies - no templates. Standard workflow:
 
 ```bash
-# Disk changed, update source (auto-commits and pushes)
+# 1. Scan the file for sensitive data first (see above)
+# 2. Disk changed, update source (auto-commits and pushes)
 chezmoi add ~/.tmux.conf
 chezmoi re-add ~/.config/starship.toml
 
