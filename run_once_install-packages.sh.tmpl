@@ -14,5 +14,5 @@ fi
 
 # Rebuild nix-darwin (installs all packages from configuration.nix)
 if command -v darwin-rebuild &>/dev/null; then
-    darwin-rebuild switch --flake ~/.config/nix-darwin
+    sudo darwin-rebuild switch --flake ~/.config/nix-darwin
 fi
