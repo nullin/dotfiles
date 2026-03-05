@@ -1,3 +1,12 @@
+---
+name: review-pr
+description: Review a GitHub PR with line-specific comments and code suggestions. Creates a PENDING review that the user must manually submit. Use when user says "/review-pr", "review this PR", "review PR 123", or wants to post review comments on a GitHub pull request.
+allowed-tools:
+  - Bash(gh:*)
+  - Bash(git:*)
+  - Read
+---
+
 Review a GitHub PR with line-specific comments and code suggestions. Creates a PENDING review that the user must manually submit.
 
 **Usage:** `/review-pr [instructions]`
