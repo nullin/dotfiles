@@ -1,5 +1,6 @@
 ---
 name: sentry
+allowed-tools: Bash(curl *), Read
 description: Use when investigating production errors, analyzing error trends, triaging Sentry issues, or querying Sentry API for error data and project health.
 ---
 
