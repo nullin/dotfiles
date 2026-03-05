@@ -1,6 +1,6 @@
 ---
 name: grug-review
-description: Review code with grug-brain anti-complexity philosophy. Use when reviewing PRs, diffs, or code changes to identify unnecessary complexity.
+description: Review code with grug-brain anti-complexity philosophy. Use when reviewing PRs, diffs, or code changes to identify unnecessary complexity, premature abstractions, over-engineering, or YAGNI violations. Also use as a second-pass simplicity check after any code review, or when code feels "too clever". Triggers on "grug review", "complexity check", "simplicity review", "is this over-engineered", or "too abstract".
 ---
 
 # Grug Code Review
