@@ -104,7 +104,7 @@ For each selected agent, call `TaskCreate` with subject, description, and active
 
 ### 3c. Spawn all agents in a SINGLE message
 
-Each specialist has a custom agent definition (in `agents/`) with its review protocol, specialist instructions, and persistent memory. You do NOT need to assemble prompts — the agent's `.md` file provides its system prompt automatically.
+Each specialist has a custom agent definition (in `~/.claude/agents/`) with its review protocol, specialist instructions, and persistent memory. You do NOT need to assemble prompts — the agent's `.md` file provides its system prompt automatically.
 
 Spawn using `subagent_type` matching the agent name. The Task prompt contains only the dynamic content:
 
