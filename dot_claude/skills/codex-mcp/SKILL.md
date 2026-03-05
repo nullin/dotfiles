@@ -1,3 +1,8 @@
+---
+name: codex-mcp
+description: Codex MCP for collaborative planning. Use when starting implementation planning, exploring trade-offs, rubber-ducking problems, or getting a second opinion on architecture. Start a threaded conversation with Codex for iterative problem-solving. Triggers on "plan with codex", "think through this", "CONSULT Codex", or any reference to collaborative planning.
+---
+
 # Codex MCP for Collaborative Planning
 
 Codex MCP provides a collaborative AI partner for planning and problem-solving. Threaded conversations let you think through problems iteratively.
