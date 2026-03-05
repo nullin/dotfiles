@@ -1,3 +1,13 @@
+---
+name: discover
+description: Deep codebase investigation using Explore subagent for thorough analysis. Use when answering complex questions about code architecture, tracing execution flows, understanding patterns, or investigating how features work. Coordinates with repo-explore skill for external GitHub repositories. Trigger on "how does X work in this codebase", "trace the flow of", "find where X is implemented", or architecture questions.
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
+  - Task
+---
+
 # Codebase Discovery
 
 Deep codebase investigation using Explore subagent for thorough analysis. Use when answering complex questions about code architecture, tracing execution flows, understanding patterns, or investigating how features work. Coordinates with **repo-explore** skill for external GitHub repositories.
