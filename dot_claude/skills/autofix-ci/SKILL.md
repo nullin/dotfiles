@@ -1,3 +1,14 @@
+---
+name: autofix-ci
+description: Automatically fix CI failures for the current branch and PR. Use when CI checks fail, builds break, lint errors appear, or tests fail in GitHub Actions. Triggers on "fix ci", "ci failing", "build broken", "lint errors", or "tests failing".
+allowed-tools:
+  - Bash(gh:*)
+  - Bash(git:*)
+  - Bash(make:*)
+  - Read
+  - Edit
+---
+
 Automatically fix CI failures for the current branch and PR.
 
 ## Instructions
