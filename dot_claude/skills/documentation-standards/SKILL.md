@@ -1,5 +1,6 @@
 ---
 name: documentation-standards
+allowed-tools: Read, Write, Edit
 description: Use when creating or reviewing documentation, READMEs, ADRs, runbooks, or API docs. Also use when checking if a project's documentation is complete or meets minimum standards. Triggers on "review docs", "check README", "write ADR", "create runbook", or documentation quality questions. For framework-based doc writing (tutorials, how-to guides), use diataxis-documentation instead.
 ---
 
