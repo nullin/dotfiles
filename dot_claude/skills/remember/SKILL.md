@@ -1,5 +1,6 @@
 ---
 name: remember
+allowed-tools: Read, Write, Edit
 description: Review session work and optionally update agent memory. Use to capture decisions, patterns, or insights - or just to reflect without changing anything.
 ---
 
