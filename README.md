@@ -4,23 +4,13 @@ Dotfiles managed by [chezmoi](https://www.chezmoi.io/). Supports multiple machin
 
 ## Quick start
 
-### Prerequisites
-
-On a fresh Mac, complete these manual steps first:
+### Step 1: Prerequisites
 
 1. **Set the hostname** via System Settings > General > About > Name. The nix-darwin configuration uses the system hostname.
 
 2. **Install Nix** via Determinate Systems: visit [https://determinate.systems/nix-installer/](https://determinate.systems/nix-installer/) and follow the UI installer. Open a new terminal after installation so `nix` is in your PATH.
 
-3. **Install nix-darwin** by bootstrapping it from the flake (run after chezmoi deploys the nix config in step 4):
-
-```bash
-nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/nix
-```
-
-### Bootstrap
-
-Run the bootstrap script:
+### Step 2: Bootstrap dotfiles
 
 ```bash
 curl -fsLS https://raw.githubusercontent.com/nullin/dotfiles/main/bootstrap.sh | bash
@@ -34,7 +24,15 @@ This will:
 4. Generate an SSH key and prompt you to add it to GitHub
 5. Switch the dotfiles remote from HTTPS to SSH
 
-Then run the nix-darwin bootstrap from prerequisite step 3 above. On subsequent runs, `chezmoi apply` will call `darwin-rebuild switch` automatically.
+### Step 3: Install nix-darwin
+
+After the bootstrap deploys the nix config files, bootstrap nix-darwin:
+
+```bash
+nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/nix
+```
+
+This installs all packages from `configuration.nix` and applies macOS system defaults. On subsequent runs, `chezmoi apply` calls `darwin-rebuild switch` automatically.
 
 Open a new terminal afterward to pick up the updated shell configuration.
 
