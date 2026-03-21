@@ -7,17 +7,9 @@ if ! command -v brew &>/dev/null; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# Install Nix if not present (Determinate Systems installer, standard Nix mode).
-# --determinate false avoids installing the Determinate Nix daemon which conflicts
-# with nix-darwin's native Nix management.
-if ! command -v nix &>/dev/null; then
-    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --determinate false
-fi
-
-# Rebuild nix-darwin (installs all packages from configuration.nix)
+# Rebuild nix-darwin (installs all packages from configuration.nix).
+# Nix and nix-darwin must be installed manually before running chezmoi apply.
+# See README.md for prerequisites.
 if command -v darwin-rebuild &>/dev/null; then
     sudo darwin-rebuild switch --flake ~/.config/nix
-else
-    # First run: darwin-rebuild not yet installed. Bootstrap nix-darwin via the flake.
-    sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/nix
 fi

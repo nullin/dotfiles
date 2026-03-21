@@ -4,9 +4,23 @@ Dotfiles managed by [chezmoi](https://www.chezmoi.io/). Supports multiple machin
 
 ## Quick start
 
-On a fresh Mac, first set the hostname via System Settings > General > About > Name. The nix-darwin configuration uses the system hostname, so this should be done before running the bootstrap.
+### Prerequisites
 
-Then:
+On a fresh Mac, complete these manual steps first:
+
+1. **Set the hostname** via System Settings > General > About > Name. The nix-darwin configuration uses the system hostname.
+
+2. **Install Nix** via Determinate Systems: visit [https://determinate.systems/nix-installer/](https://determinate.systems/nix-installer/) and follow the UI installer. Open a new terminal after installation so `nix` is in your PATH.
+
+3. **Install nix-darwin** by bootstrapping it from the flake (run after chezmoi deploys the nix config in step 4):
+
+```bash
+nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/nix
+```
+
+### Bootstrap
+
+Run the bootstrap script:
 
 ```bash
 curl -fsLS https://raw.githubusercontent.com/nullin/dotfiles/main/bootstrap.sh | bash
@@ -16,9 +30,11 @@ This will:
 
 1. Install chezmoi
 2. Prompt for machine type (work/personal), name, email, and GitHub username
-3. Deploy all dotfiles and run the package installer (Homebrew + Nix)
+3. Deploy all dotfiles and install Homebrew
 4. Generate an SSH key and prompt you to add it to GitHub
 5. Switch the dotfiles remote from HTTPS to SSH
+
+Then run the nix-darwin bootstrap from prerequisite step 3 above. On subsequent runs, `chezmoi apply` will call `darwin-rebuild switch` automatically.
 
 Open a new terminal afterward to pick up the updated shell configuration.
 
@@ -47,7 +63,7 @@ To change machine type after setup, edit `~/.config/chezmoi/chezmoi.toml` and ru
 ## Structure
 
 - `.chezmoi.toml.tmpl` - init template that prompts for machine-specific values
-- `run_once_install-packages.sh.tmpl` - installs Homebrew and Nix on first run
+- `run_once_install-packages.sh.tmpl` - installs Homebrew and runs darwin-rebuild on first run
 - `dot_config/nix/` - nix-darwin configuration (packages, system defaults, fonts)
 - `dot_claude/` - Claude Code settings, agents, rules, and skills
 - `dot_zshrc.tmpl` - zsh configuration with zinit plugins
