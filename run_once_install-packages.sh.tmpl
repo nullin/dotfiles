@@ -17,5 +17,5 @@ if command -v darwin-rebuild &>/dev/null; then
     sudo darwin-rebuild switch --flake ~/.config/nix
 else
     # First run: darwin-rebuild not yet installed. Bootstrap nix-darwin via the flake.
-    nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/nix
+    sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/nix
 fi
