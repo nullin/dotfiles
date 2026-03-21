@@ -20,11 +20,7 @@ This will:
 4. Generate an SSH key and prompt you to add it to GitHub
 5. Switch the dotfiles remote from HTTPS to SSH
 
-If nix was just installed and `darwin-rebuild` is not yet in your PATH, open a new terminal and run:
-
-```bash
-sudo darwin-rebuild switch --flake ~/.config/nix
-```
+Open a new terminal afterward to pick up the updated shell configuration.
 
 ## Updating
 

@@ -33,5 +33,4 @@ git remote set-url origin "$SSH_URL"
 
 echo "==> Done"
 echo ""
-echo "If darwin-rebuild did not run (nix not yet in PATH), open a new terminal and run:"
-echo "  sudo darwin-rebuild switch --flake ~/.config/nix"
+echo "Open a new terminal to pick up the updated shell configuration."
