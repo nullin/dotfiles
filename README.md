@@ -4,7 +4,9 @@ Dotfiles managed by [chezmoi](https://www.chezmoi.io/). Supports multiple machin
 
 ## Quick start
 
-On a fresh Mac:
+On a fresh Mac, first set the hostname via System Settings > General > About > Name. The nix-darwin configuration uses the system hostname, so this should be done before running the bootstrap.
+
+Then:
 
 ```bash
 curl -fsLS https://raw.githubusercontent.com/nullin/dotfiles/main/bootstrap.sh | bash
