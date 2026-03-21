@@ -1,3 +1,7 @@
+# Repo files that should not be deployed to home directory
+README.md
+bootstrap.sh
+
 # Claude Code: ignore everything, whitelist portable config
 .claude/*
 !.claude/CLAUDE.md
