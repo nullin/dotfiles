@@ -12,8 +12,13 @@ macos-defaults apply ~/.config/macos-defaults/
 echo "==> Configuring Touch ID for sudo..."
 SUDO_LOCAL="/etc/pam.d/sudo_local"
 if [ ! -f "$SUDO_LOCAL" ] || ! grep -q "pam_tid.so" "$SUDO_LOCAL"; then
-    echo "auth       sufficient     pam_tid.so" | sudo tee "$SUDO_LOCAL" > /dev/null
-    echo "    Touch ID sudo enabled"
+    if sudo -n true 2>/dev/null; then
+        echo "auth       sufficient     pam_tid.so" | sudo tee "$SUDO_LOCAL" > /dev/null
+        echo "    Touch ID sudo enabled"
+    else
+        echo "    Requires sudo. Run manually:"
+        echo "    echo \"auth       sufficient     pam_tid.so\" | sudo tee $SUDO_LOCAL"
+    fi
 else
     echo "    Touch ID sudo already configured"
 fi
