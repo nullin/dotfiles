@@ -1,0 +1,22 @@
+---
+description: Global macOS settings
+data:
+  NSGlobalDomain:
+    # Disable automatic capitalization
+    NSAutomaticCapitalizationEnabled: false
+    # Disable automatic period substitution
+    NSAutomaticPeriodSubstitutionEnabled: false
+    # Disable smart quotes
+    NSAutomaticQuoteSubstitutionEnabled: false
+    # Disable smart dashes
+    NSAutomaticDashSubstitutionEnabled: false
+    # Full keyboard access for all controls (tab between buttons)
+    AppleKeyboardUIMode: 3
+    # Show all file extensions
+    AppleShowAllExtensions: true
+    # Expand save panel by default
+    NSNavPanelExpandedStateForSaveMode: true
+    NSNavPanelExpandedStateForSaveMode2: true
+    # Expand print panel by default
+    PMPrintingExpandedStateForPrint: true
+    PMPrintingExpandedStateForPrint2: true
