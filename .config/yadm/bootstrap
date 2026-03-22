@@ -1,0 +1,21 @@
+#!/bin/bash
+set -euo pipefail
+
+cd "$HOME"
+
+echo "==> Installing Homebrew packages..."
+brew bundle --global
+
+echo "==> Applying macOS defaults..."
+macos-defaults apply ~/.config/macos-defaults/
+
+echo "==> Configuring Touch ID for sudo..."
+SUDO_LOCAL="/etc/pam.d/sudo_local"
+if [ ! -f "$SUDO_LOCAL" ] || ! grep -q "pam_tid.so" "$SUDO_LOCAL"; then
+    echo "auth       sufficient     pam_tid.so" | sudo tee "$SUDO_LOCAL" > /dev/null
+    echo "    Touch ID sudo enabled"
+else
+    echo "    Touch ID sudo already configured"
+fi
+
+echo "==> Bootstrap complete"
