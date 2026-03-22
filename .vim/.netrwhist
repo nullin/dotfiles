@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =0
+let g:netrw_dirhist_0='/Users/nmakar/.config/nix'
+let g:netrw_dirhist_9='/Users/nmakar/Library/Application Support/act'
+let g:netrw_dirhist_8='/Users/nmakar/Library'
+let g:netrw_dirhist_7='/'
+let g:netrw_dirhist_6='/Users/nmakar/work/repos/actions'
+let g:netrw_dirhist_5='/Users/nmakar/work/repos'
+let g:netrw_dirhist_4='/Users/nmakar/work'
+let g:netrw_dirhist_3='/Users/nmakar'
+let g:netrw_dirhist_2='/Users'
+let g:netrw_dirhist_1='/'

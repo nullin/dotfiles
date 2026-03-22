@@ -1,0 +1,26 @@
+.credentials.json
+agent-memory/
+backups/
+cache/
+debug/
+file-history/
+history.jsonl
+hooks/
+ide/
+paste-cache/
+plans/
+projects/
+session-env/
+sessions/
+shell-snapshots/
+stats-cache.json
+tasks/
+telemetry/
+todos/
+usage-data/
+
+# cw specific skills
+skills/cw-*
+skills/pipey
+skills/autofix-ci
+
