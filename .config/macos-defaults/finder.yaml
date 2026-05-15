@@ -1,0 +1,17 @@
+---
+description: Finder settings
+kill: ["Finder"]
+data:
+  com.apple.finder:
+    # Show all file extensions
+    AppleShowAllExtensions: true
+    # Show path bar at bottom
+    ShowPathbar: true
+    # Show status bar at bottom
+    ShowStatusBar: true
+    # Disable warning when changing file extensions
+    FXEnableExtensionChangeWarning: false
+    # Column view by default
+    FXPreferredViewStyle: clmv
+    # Search current folder by default
+    FXDefaultSearchScope: SCcf

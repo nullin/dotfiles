@@ -1,0 +1,7 @@
+.netrc
+.zcompdump
+.zcompdump.*
+.zsh_history
+
+# cw specific
+.cursor/commands/code-review.md
