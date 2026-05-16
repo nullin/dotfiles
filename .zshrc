@@ -185,3 +185,6 @@ export PATH="$HOME/.local/bin:$PATH"
 
 eval "$(uvx --generate-shell-completion zsh)"
 eval "$(starship init zsh)"
+
+# Work-specific config (not tracked in public dotfiles)
+[ -f "$HOME/.zshrc.work" ] && source "$HOME/.zshrc.work"
