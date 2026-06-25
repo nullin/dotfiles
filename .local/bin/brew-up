@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Upgrade all Homebrew formulae and casks, then tidy up.
+set -euo pipefail
+export NONINTERACTIVE=1
+export HOMEBREW_NO_ENV_HINTS=1
+exec </dev/null  # close stdin; any prompt that tries to read it gets EOF
+
+step() { printf '\n==> %s\n' "$*"; }
+
+step "brew update"
+brew update
+
+step "brew upgrade"
+brew upgrade --display-times
+
+step "brew upgrade --cask --greedy"
+brew upgrade --cask --greedy
+
+step "brew autoremove"
+brew autoremove
+
+step "brew cleanup"
+brew cleanup
+
+step "brew bundle dump --file=~/.Brewfile --force"
+brew bundle dump --file="$HOME/.Brewfile" --force
+
+step "brew doctor"
+# doctor exits non-zero on warnings; surface them but don't fail the run
+brew doctor || true
+
+step "brew outdated (should be empty)"
+brew outdated

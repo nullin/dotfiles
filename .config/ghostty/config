@@ -1,0 +1,34 @@
+# because we are on nightly
+auto-update = "off"
+
+# fonts / display
+window-title-font-family="FiraCode Nerd Font Mono"
+#font-family="FiraCode Nerd Font Mono"
+font-family="MonaspiceAr Nerd Font Mono"
+font-size=13
+font-feature=+liga
+font-thicken=false
+font-thicken-strength=1
+adjust-cell-height=2
+
+background-opacity = 0.85
+background-blur=16
+background=#111111
+macos-titlebar-style = transparent
+copy-on-select = clipboard
+
+# Adjust window padding (can use integers or percentages)
+window-padding-x = 8
+window-padding-y = 8
+window-padding-balance = true
+
+# Hide the mouse cursor while typing
+mouse-hide-while-typing = true
+
+# Enable smart features via shell integration like prompt jumping
+shell-integration-features = true
+shell-integration = zsh
+
+quit-after-last-window-closed = true
+gtk-single-instance=true
+scrollback-limit = 100000000

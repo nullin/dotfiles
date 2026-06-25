@@ -1,0 +1,10 @@
+.netrc
+.zcompdump
+.zcompdump.*
+.zsh_history
+.zshrc.work
+
+# cw specific
+.cursor/commands/code-review.md
+
+**/.claude/settings.local.json
