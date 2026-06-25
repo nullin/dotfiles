@@ -107,7 +107,7 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 
 # claude code aliases
-alias claude="claude --dangerously-skip-permissions --verbose"
+claude() { _cmux_claude_wrapper_command --dangerously-skip-permissions --verbose "$@"; }
 
 mc() {
   local name="${1:-}"
@@ -215,3 +215,6 @@ eval "$(starship init zsh)"
 
 # Work-specific config (not tracked in public dotfiles)
 [ -f "$HOME/.zshrc.work" ] && source "$HOME/.zshrc.work"
+
+# Added by Antigravity IDE
+export PATH="/Users/nmakar/.antigravity-ide/antigravity-ide/bin:$PATH"
