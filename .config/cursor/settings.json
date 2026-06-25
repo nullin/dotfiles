@@ -21,7 +21,6 @@
     "cSpell.userWords": [
         "amqp",
         "backoff",
-        "changeme",
         "cicd",
         "conda",
         "cves",
@@ -29,7 +28,6 @@
         "Multibranch",
         "rabbitmq",
         "sqlalchemy",
-        "stackrox",
         "tstamp",
         "venv",
         "vuln"

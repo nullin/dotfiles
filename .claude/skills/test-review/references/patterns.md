@@ -155,7 +155,7 @@ def test_cache_returns_none_for_missing():
 
 ```go
 func TestParseStages_DefaultsWhenEmpty(t *testing.T) {
-    // User runs `cw dev init` with no --stages flag
+    // User runs `mycli init` with no --stages flag
     // Should default to running all stages
     stages := parseStages(nil)
     assert.Equal(t, SupportedStages, stages)

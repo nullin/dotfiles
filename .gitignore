@@ -7,4 +7,6 @@
 # cw specific
 .cursor/commands/code-review.md
 
+.vim/.netrwhist
+
 **/.claude/settings.local.json
