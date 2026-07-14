@@ -1,6 +1,7 @@
 ---
 name: squash
 description: Squash commits on current branch with safety verification. Use when user says "/squash", "squash commits", or wants to combine multiple commits into one.
+model: haiku
 allowed-tools:
   - Bash(git:*)
   - Read

@@ -1,6 +1,7 @@
 ---
 name: src-cli-batch
-description: Sourcegraph src CLI batch changes - create, preview, apply, publish, troubleshoot. Use for "batch change", "batch spec", "src batch", "changeset", writing/debugging batch spec YAML, or any request to make the same code change across many repos at scale.
+description: Sourcegraph src CLI batch changes - create, preview, apply, publish, troubleshoot. Use for "batch change/spec", "src batch", "changeset", batch spec YAML, or same-change-across-many-repos requests.
+context: fork
 ---
 
 # src-cli Batch Changes

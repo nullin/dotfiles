@@ -1,6 +1,6 @@
 ---
 name: test-review
-description: Audit a codebase's tests and plan improvements - find gaps, assess quality, propose new tests, target meaningful coverage. Use for "test audit", "testing gaps", "improve tests", "review tests", "what needs testing", or any request to assess or improve a test suite.
+description: Audit a codebase's tests - find gaps, assess quality, propose tests, target meaningful coverage. Use for "test audit", "testing gaps", "improve tests", "what needs testing".
 ---
 
 # Test Review

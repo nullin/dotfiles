@@ -1,6 +1,7 @@
 ---
 name: searching-sourcegraph
 description: Search Sourcegraph-indexed codebases for patterns, examples, and system understanding. Triggers on implementation questions, debugging, or "how does X work" queries.
+context: fork
 allowed-tools:
   - Read
 ---

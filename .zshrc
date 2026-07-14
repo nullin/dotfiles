@@ -107,7 +107,7 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 
 # claude code aliases
-claude() { _cmux_claude_wrapper_command --dangerously-skip-permissions --verbose "$@"; }
+export CLAUDE_WORK_DIR="$HOME/work/claude"
 
 mc() {
   local name="${1:-}"
@@ -140,6 +140,9 @@ mc() {
   fi
   popd > /dev/null
 }
+
+# cmux override's override
+alias _cmux_claude_wrapper_command="_cmux_claude_wrapper_command --dangerously-skip-permissions --verbose "
 
 alias code=agy-ide
 alias oc=opencode
@@ -183,17 +186,17 @@ alias repos='cd ~/work/repos'
 
 # update repos by syncing against latest remote
 ru() {
-    pushd ~/work/repos >/dev/null || return
-    for dir in */; do
-			  dir=${dir%/}
-        echo "Processing $dir"
-        if [[ -d "$dir/.git" ]]; then
-            (cd "$dir" && git pull --rebase --force) || echo "Failed: $dir"
-        else
-            echo "Skipping $dir (not a git repo)"
-        fi
-		done
-    popd >/dev/null
+  pushd ~/work/repos >/dev/null || return
+  for dir in */; do
+      dir=${dir%/}
+      echo "Processing $dir"
+      if [[ -d "$dir/.git" ]]; then
+        (cd "$dir" && git pull --rebase --force) || echo "Failed: $dir"
+      else
+        echo "Skipping $dir (not a git repo)"
+      fi
+  done
+  popd >/dev/null
 }
 
 # Add homebrew to the completion path
@@ -205,16 +208,17 @@ export PATH=$PATH:$GOPATH/bin
 
 # Sublime Text
 export PATH=$PATH:"/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+# Added by Antigravity IDE
+export PATH="/Users/nmakar/.antigravity-ide/antigravity-ide/bin:$PATH"
 
 # Claude
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000
 export PATH="$HOME/.local/bin:$PATH"
 
-eval "$(uvx --generate-shell-completion zsh)"
+# we don't us uvx often enough to generate these
+# eval "$(uvx --generate-shell-completion zsh)"
+
 eval "$(starship init zsh)"
 
 # Work-specific config (not tracked in public dotfiles)
 [ -f "$HOME/.zshrc.work" ] && source "$HOME/.zshrc.work"
-
-# Added by Antigravity IDE
-export PATH="/Users/nmakar/.antigravity-ide/antigravity-ide/bin:$PATH"

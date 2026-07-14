@@ -1,6 +1,6 @@
 ---
 name: plan-review
-description: Adversarial review of an implementation plan, spec, or design doc before coding. Challenges architecture, surfaces hidden constraints, runs a Codex-driven production gap analysis. Use for "/plan-review", "review this plan", "stress-test the plan", "is this ready to implement", or after a plan is written and the user asks whether it holds up.
+description: Adversarial review of a plan, spec, or design doc before coding - challenges architecture, surfaces hidden constraints, runs Codex-driven gap analysis. Use for "/plan-review", "review this plan", "stress-test the plan", "is this ready to implement".
 argument-hint: "path to plan file, or omit to find the most recent plan"
 ---
 

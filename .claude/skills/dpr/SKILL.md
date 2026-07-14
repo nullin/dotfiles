@@ -1,6 +1,7 @@
 ---
 name: dpr
 description: Commit, push, and create a draft PR in one shot. Use for "/dpr", "draft pr", or "commit and pr".
+model: haiku
 allowed-tools:
   - Bash(git:*)
   - Bash(gh:*)

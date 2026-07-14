@@ -1,6 +1,7 @@
 ---
 name: git-commit
 description: Creates logically grouped, atomic git commits with Conventional Commits messages. Use for "/commit", "commit changes", splitting changes into multiple commits, or `git add -p` partial staging.
+model: haiku
 allowed-tools:
   - Bash(git:*)
   - Read
