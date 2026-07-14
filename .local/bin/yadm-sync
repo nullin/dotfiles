@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# Review, scan, and push dotfile changes tracked by yadm.
+set -euo pipefail
+
+step() { printf '\n==> %s\n' "$*"; }
+
+if yadm diff --quiet && yadm diff --cached --quiet; then
+  step "no changes to sync"
+  exit 0
+fi
+
+step "yadm status"
+yadm status
+
+step "yadm add -u"
+yadm add -u
+
+step "full diff"
+diff="$(yadm diff --cached)"
+printf '%s\n' "$diff"
+
+step "codex secret/leak scan"
+review_out="$(mktemp)"
+review_log="$(mktemp)"
+trap 'rm -f "$review_out" "$review_log"' EXIT
+
+if ! printf '%s\n' "$diff" | codex exec --ignore-user-config -s read-only --skip-git-repo-check \
+  -o "$review_out" \
+  "Review this git diff of dotfiles about to be pushed to the PUBLIC github repo nullin/dotfiles. Flag any secrets, API keys, tokens, passwords, private keys, or CoreWeave/work-related confidential info (internal hostnames, employee emails, internal URLs, customer data). Reply with either 'CLEAR' on its own line, or 'FLAGGED:' followed by specifics." \
+  >"$review_log" 2>&1
+then
+  step "codex scan errored - see output"
+  cat "$review_log"
+  exit 1
+fi
+
+verdict="$(cat "$review_out")"
+printf '%s\n' "$verdict"
+
+if printf '%s' "$verdict" | grep -q '^FLAGGED'; then
+  step "codex flagged a possible leak - aborting"
+  exit 1
+fi
+
+reply=""
+read -r -p $'\nProceed with commit + push? [y/N] ' reply || true
+case "$reply" in
+  y|Y) ;;
+  *) step "aborted"; exit 1 ;;
+esac
+
+msg="${1:-chore: sync dotfiles}"
+step "yadm commit -m \"$msg\""
+yadm commit -m "$msg"
+
+step "yadm push"
+yadm push
