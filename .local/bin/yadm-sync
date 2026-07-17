@@ -4,8 +4,26 @@ set -euo pipefail
 
 step() { printf '\n==> %s\n' "$*"; }
 
-if yadm diff --quiet && yadm diff --cached --quiet; then
+ahead=0
+if yadm rev-parse --abbrev-ref '@{u}' &>/dev/null; then
+  ahead="$(yadm rev-list --count '@{u}..HEAD')"
+fi
+
+if yadm diff --quiet && yadm diff --cached --quiet && [ "$ahead" -eq 0 ]; then
   step "no changes to sync"
+  exit 0
+fi
+
+if yadm diff --quiet && yadm diff --cached --quiet; then
+  step "$ahead commit(s) ahead of remote, nothing to commit - pushing"
+  reply=""
+  read -r -p $'\nProceed with push? [y/N] ' reply || true
+  case "$reply" in
+    y|Y) ;;
+    *) step "aborted"; exit 1 ;;
+  esac
+  step "yadm push"
+  yadm push
   exit 0
 fi
 
