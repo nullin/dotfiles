@@ -144,7 +144,7 @@ mc() {
 # cmux override's override
 alias _cmux_claude_wrapper_command="_cmux_claude_wrapper_command --dangerously-skip-permissions --verbose "
 
-alias code=agy-ide
+alias code=cursor
 alias oc=opencode
 alias codex="codex --dangerously-bypass-approvals-and-sandbox"
 

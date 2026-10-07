@@ -6,8 +6,9 @@
 2. [Coverage Theater](#coverage-theater)
 3. [Over-Mocked Tests](#over-mocked-tests)
 4. [Implementation-Coupled Tests](#implementation-coupled-tests)
-5. [Good Test Characteristics](#good-test-characteristics)
-6. [Bug Patterns Found Via Testing Gaps](#bug-patterns)
+5. [Seams Kept Alive Only By Deleted Tests](#seams-kept-alive-only-by-deleted-tests)
+6. [Good Test Characteristics](#good-test-characteristics)
+7. [Bug Patterns Found Via Testing Gaps](#bug-patterns)
 
 ---
 
@@ -146,6 +147,48 @@ def test_cache_returns_none_for_missing():
     cache = Cache()
     assert cache.get("missing") is None
 ```
+
+---
+
+## Seams Kept Alive Only By Deleted Tests
+
+After removing a low-value test, check whether the production code still needs the interface or
+injection point that test relied on.
+
+```go
+// The only reason Clock was an interface: a test injected a fake to control time.
+type Clock interface{ Now() time.Time }
+
+type Service struct {
+    clock Clock // seam existed solely for testability
+}
+
+func (s *Service) IsExpired(t time.Time) bool {
+    return s.clock.Now().After(t)
+}
+
+// BAD test being removed - mirrors the source, no real behavior at risk
+func TestIsExpired_UsesClock(t *testing.T) {
+    fc := &fakeClock{now: time.Unix(100, 0)}
+    svc := &Service{clock: fc}
+    assert.True(t, svc.IsExpired(time.Unix(50, 0)))
+}
+```
+
+Once that test is gone, and nothing else needs to fake the clock, collapse the seam:
+
+```go
+// GOOD: no callers need a fake clock, so use time.Now() directly
+type Service struct{}
+
+func (s *Service) IsExpired(t time.Time) bool {
+    return time.Now().After(t)
+}
+```
+
+Before collapsing, grep for other references to the interface/injection point - a seam used by
+more than one test, or by real production wiring for a legitimate reason (e.g. deterministic
+tests elsewhere, plugin architecture), should stay.
 
 ---
 

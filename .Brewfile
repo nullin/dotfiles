@@ -1,13 +1,15 @@
 tap "anomalyco/tap"
 tap "aviator-co/tap"
 tap "blendle/blendle"
+tap "can1357/tap"
 tap "chainguard-dev/tap"
 tap "coderabbitai/tap"
-tap "dopplerhq/doppler", "https://github.com/DopplerHQ/homebrew-doppler.git"
+tap "dopplerhq/doppler", "https://github.com/DopplerHQ/homebrew-doppler.git", trusted: true
 tap "drolosoft/tap"
 tap "dsully/tap"
 tap "hashicorp/tap"
-tap "manaflow-ai/cmux"
+tap "manaflow-ai/cmux", trusted: true
+tap "omnigent-ai/tap"
 tap "oven-sh/bun"
 tap "sourcegraph/src-cli"
 # Run your GitHub Actions locally
@@ -21,7 +23,7 @@ brew "bash-completion"
 # New way of working with Protocol Buffers
 brew "buf"
 # Cryptography and SSL/TLS Toolkit
-brew "openssl@3"
+brew "openssl@3", link: true
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
 # See where your AI coding tokens go - by task, tool, model, and project
@@ -78,6 +80,8 @@ brew "kubeconform"
 brew "lf"
 # TIFF library and utilities
 brew "libtiff"
+# Fast, async, resource-friendly link checker
+brew "lychee"
 # Polyglot runtime manager (asdf rust clone)
 brew "mise"
 # Interactive cheatsheet tool for the command-line
@@ -94,8 +98,6 @@ brew "openjdk"
 brew "poppler"
 # QR Code generation
 brew "qrencode"
-# CLI proxy to minimize LLM token consumption
-brew "rtk"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Cross-shell prompt for astronauts
@@ -120,6 +122,27 @@ brew "zoxide"
 brew "zsh-completions"
 # The AI coding agent built for the terminal.
 brew "anomalyco/tap/opencode", trusted: true
+brew "aviator-co/tap/av", trusted: true
+# Quick Kubernetes Namespace and Context Switchers
+brew "blendle/blendle/kns", trusted: true
+# Coding agent with the IDE wired in
+brew "can1357/tap/omp", trusted: true
+# CLI for the Chainguard Platform
+brew "chainguard-dev/tap/chainctl", trusted: true
+# Git worktree manager with editor and AI tool integration
+brew "coderabbitai/tap/git-gtr", trusted: true
+# Terminal workspace manager for cmux and Ghostty — save, restore, and template your workspaces
+brew "drolosoft/tap/cmux-resurrect", trusted: true
+# Defaults setting for macOS
+brew "dsully/tap/macos-defaults", trusted: true
+# Terraform
+brew "hashicorp/tap/terraform", trusted: true
+# Meta-harness for AI agents
+brew "omnigent-ai/tap/omnigent", trusted: true
+# Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
+brew "oven-sh/bun/bun", trusted: true
+# Sourcegraph CLI
+brew "sourcegraph/src-cli/src-cli", trusted: true
 # Utility that prevents the system from going to sleep
 cask "caffeine"
 # Menu bar timezone tracker and compact calendar
@@ -137,6 +160,50 @@ cask "omnidisksweeper"
 cask "stats"
 # Menu bar manager
 cask "thaw"
+vscode "anthropic.claude-code"
+vscode "charliermarsh.ruff"
+vscode "christian-kohler.npm-intellisense"
+vscode "coder.coder-remote"
+vscode "continue.continue"
+vscode "davidanson.vscode-markdownlint"
+vscode "dbaeumer.vscode-eslint"
+vscode "donjayamanne.githistory"
+vscode "eamodio.gitlens"
+vscode "formulahendry.code-runner"
+vscode "golang.go"
+vscode "kevinrose.vsc-python-indent"
+vscode "mechatroner.rainbow-csv"
+vscode "mhutchie.git-graph"
+vscode "mindaro-dev.file-downloader"
+vscode "ms-azuretools.vscode-containers"
+vscode "ms-azuretools.vscode-docker"
+vscode "ms-kubernetes-tools.vscode-kubernetes-tools"
+vscode "ms-python.debugpy"
+vscode "ms-python.isort"
+vscode "ms-python.python"
+vscode "ms-python.vscode-pylance"
+vscode "ms-python.vscode-python-envs"
+vscode "ms-toolsai.jupyter-keymap"
+vscode "ms-vscode-remote.remote-containers"
+vscode "ms-vscode-remote.remote-ssh"
+vscode "ms-vscode-remote.remote-ssh-edit"
+vscode "ms-vscode-remote.vscode-remote-extensionpack"
+vscode "ms-vscode.live-server"
+vscode "ms-vscode.makefile-tools"
+vscode "ms-vscode.remote-explorer"
+vscode "ms-vscode.remote-server"
+vscode "nicolasvuillamy.vscode-groovy-lint"
+vscode "njqdev.vscode-python-typehint"
+vscode "oderwat.indent-rainbow"
+vscode "pkief.material-icon-theme"
+vscode "redhat.java"
+vscode "redhat.vscode-yaml"
+vscode "streetsidesoftware.code-spell-checker"
+vscode "tamasfe.even-better-toml"
+vscode "tomoki1207.pdf"
+vscode "wholroyd.jinja"
+vscode "yzhang.markdown-all-in-one"
+vscode "zhuangtongfa.material-theme"
 go "github.com/spf13/cobra-cli"
 go "golang.org/x/tools/cmd/goimports"
 go "golang.org/x/tools/gopls"
@@ -148,5 +215,5 @@ go "github.com/tomarrell/wrapcheck/v2/cmd/wrapcheck"
 uv "playwright"
 krew "ctx"
 krew "ns"
-npm "context-mode"
+npm "markdownlint-cli2"
 npm "task-master-ai"

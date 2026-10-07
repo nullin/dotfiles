@@ -23,6 +23,10 @@ Reference the user's testing rules at `~/.claude/rules/testing.md` if they exist
 - **Tests that don't test anything are worse than no tests.** Logic-flow simulations using local
   variables, tests that set up state but never call the function under test, tests that assert on
   constants - these create false confidence. Flag them for removal or rewrite.
+- **A test must justify its presence.** If it would not catch a regression a user could notice,
+  delete it. A test that needs to change every time the underlying source changes - with no
+  behavior change - is asserting implementation, not behavior. That is a sign to remove or rewrite
+  it, not a maintenance cost to accept.
 
 ## Workflow
 
@@ -100,6 +104,11 @@ Critically evaluate existing tests for:
   (e.g., "timeout is 15s" asserting `client.Timeout == 15*time.Second` when that's just the
   constant). These break on intentional changes and catch zero bugs. Only assert on values
   that result from logic, not values that are directly assigned from constants.
+- **Source-mirroring tests**: Tests that just re-assert what the source already says, with no
+  independent logic of their own - restating a struct's field values, re-deriving a formula the
+  source already computed, or asserting a mock's canned return value came back unchanged. If the
+  test would need to change in lockstep with the source line it exercises, and no user-visible
+  behavior changed, it is mirroring implementation, not verifying it.
 
 **Pass 5 - Mock hygiene:**
 
@@ -151,6 +160,17 @@ Synthesize findings into actionable patterns:
    - Tests that can be merged into a single table-driven test
    - Logic-flow simulations that should be rewritten to call actual functions
    - Duplicate tests across files
+   - Tests that do nothing but re-assert the source (mirror a field, a constant, or a mock's
+     canned return value with no independent logic) - low-value and safe to delete outright
+
+5. **Seam removal after pruning** - Once low-value, duplicate, and source-mirroring tests are
+   marked for removal, check whether the production code they exercised can now be simplified:
+   - Look for interfaces, dependency-injection points, exported internals, or extra indirection
+     that exist only so the removed test could substitute a mock or reach into private state
+   - If no remaining test (and no real caller) needs that seam, recommend collapsing it back to
+     concrete types or private/unexported code in the same task as the test removal
+   - Do not simplify a seam that a *kept* test or an actual production caller still depends on -
+     verify by checking remaining references before recommending removal
 
 ### Phase 4: Implementation Plan
 
@@ -196,6 +216,10 @@ This is the primary output. The plan must be detailed enough that:
 **Pruning:**
 - [Tests being removed/consolidated and why]
 
+**Prod code simplification (if pruning removed a seam's only consumer):**
+- [Seam being collapsed - interface, mock hook, exported internal - and confirmation that no
+  kept test or real caller still needs it. Omit this section if nothing to simplify.]
+
 **Verification:**
 ```[language]
 [exact command to run tests]
@@ -230,6 +254,9 @@ Before claiming the plan is complete:
    file naming, test organization)
 4. Check that prerequisites (canonical mocks, shared utilities) are planned before the tasks
    that need them
+5. For every test slated for removal, confirm the plan also checked whether it was the sole
+   reason a seam (interface, DI hook, exported internal) existed, and either proposes collapsing
+   that seam or notes why it must stay
 
 Present the plan to the user for approval. Do not proceed to implementation without explicit
 approval.

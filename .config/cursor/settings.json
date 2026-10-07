@@ -103,5 +103,7 @@
     ],
     "markdown.preview.fontSize": 15,
     "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
-    "explorer.confirmDragAndDrop": false
+    "explorer.confirmDragAndDrop": false,
+    "go.toolsManagement.autoUpdate": true,
+    "cursor.composer.queueMessageDefaultBehavior": "steer"
 }
