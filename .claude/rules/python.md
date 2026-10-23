@@ -14,8 +14,3 @@ paths:
 - Avoid in-line imports unless necessary or adds value
 - Avoid excessive try-catch blocks
 - Don't catch base Exceptions for normal error handling
-
-## Related
-
-- [error-handling.md](error-handling.md) - Error handling patterns
-- [testing.md](testing.md) - Testing philosophy

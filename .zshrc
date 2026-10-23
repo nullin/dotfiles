@@ -141,6 +141,32 @@ mc() {
   popd > /dev/null
 }
 
+mcodex() (
+  local name="${1:-}"
+  local dir="$CLAUDE_WORK_DIR"
+  local created=0
+  if [[ -n "$name" ]]
+  then
+    dir="$dir/$name"
+    if [[ ! -d "$dir" ]]
+    then
+      mkdir -p "$dir" || return
+      created=1
+    fi
+  fi
+  cd -- "$dir" || return
+  if (( created ))
+  then
+    git init -q || return
+  fi
+  if [[ -n "$name" ]]
+  then
+    command codex --dangerously-bypass-approvals-and-sandbox resume --last
+  else
+    command codex --dangerously-bypass-approvals-and-sandbox
+  fi
+)
+
 # cmux override's override
 alias _cmux_claude_wrapper_command="_cmux_claude_wrapper_command --dangerously-skip-permissions --verbose "
 
@@ -222,3 +248,10 @@ eval "$(starship init zsh)"
 
 # Work-specific config (not tracked in public dotfiles)
 [ -f "$HOME/.zshrc.work" ] && source "$HOME/.zshrc.work"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/nmakar/.lmstudio/bin"
+# End of LM Studio CLI section
+
+
+bindkey -s '^G' 'crex pop\n' # crex-pop-hook

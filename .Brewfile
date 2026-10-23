@@ -9,7 +9,6 @@ tap "drolosoft/tap"
 tap "dsully/tap"
 tap "hashicorp/tap"
 tap "manaflow-ai/cmux", trusted: true
-tap "omnigent-ai/tap"
 tap "oven-sh/bun"
 tap "sourcegraph/src-cli"
 # Run your GitHub Actions locally
@@ -22,8 +21,6 @@ brew "asdf"
 brew "bash-completion"
 # New way of working with Protocol Buffers
 brew "buf"
-# Cryptography and SSL/TLS Toolkit
-brew "openssl@3", link: true
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
 # See where your AI coding tokens go - by task, tool, model, and project
@@ -34,6 +31,8 @@ brew "kubernetes-cli"
 brew "devspace"
 # CLI for interacting with Doppler secrets and configuration
 brew "doppler"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@3"
 # Modern, maintained replacement for ls
 brew "eza"
 # Command-line fuzzy finder written in Go
@@ -80,6 +79,8 @@ brew "kubeconform"
 brew "lf"
 # TIFF library and utilities
 brew "libtiff"
+# Next-gen compiler infrastructure
+brew "llvm"
 # Fast, async, resource-friendly link checker
 brew "lychee"
 # Polyglot runtime manager (asdf rust clone)
@@ -88,14 +89,14 @@ brew "mise"
 brew "navi"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.14"
 # Port scanning utility for large networks
 brew "nmap"
 # Development kit for the Java programming language
 brew "openjdk"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.14"
 # QR Code generation
 brew "qrencode"
 # Static analysis and lint tool, for (ba)sh scripts
@@ -120,8 +121,8 @@ brew "zinit"
 brew "zoxide"
 # Additional completion definitions for zsh
 brew "zsh-completions"
-# The AI coding agent built for the terminal.
-brew "anomalyco/tap/opencode", trusted: true
+# OpenCode V2 - the AI coding agent for the terminal
+brew "anomalyco/tap/opencode-v2", trusted: true
 brew "aviator-co/tap/av", trusted: true
 # Quick Kubernetes Namespace and Context Switchers
 brew "blendle/blendle/kns", trusted: true
@@ -137,8 +138,6 @@ brew "drolosoft/tap/cmux-resurrect", trusted: true
 brew "dsully/tap/macos-defaults", trusted: true
 # Terraform
 brew "hashicorp/tap/terraform", trusted: true
-# Meta-harness for AI agents
-brew "omnigent-ai/tap/omnigent", trusted: true
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun", trusted: true
 # Sourcegraph CLI
@@ -187,6 +186,7 @@ vscode "ms-toolsai.jupyter-keymap"
 vscode "ms-vscode-remote.remote-containers"
 vscode "ms-vscode-remote.remote-ssh"
 vscode "ms-vscode-remote.remote-ssh-edit"
+vscode "ms-vscode-remote.remote-wsl"
 vscode "ms-vscode-remote.vscode-remote-extensionpack"
 vscode "ms-vscode.live-server"
 vscode "ms-vscode.makefile-tools"
